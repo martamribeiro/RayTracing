@@ -1,0 +1,15 @@
+C:\Users\marta\Documents\GitHub\RayTracing\bin\Debug\net6.0\RayTracing.exe
+C:\Users\marta\Documents\GitHub\RayTracing\bin\Debug\net6.0\RayTracing.deps.json
+C:\Users\marta\Documents\GitHub\RayTracing\bin\Debug\net6.0\RayTracing.runtimeconfig.json
+C:\Users\marta\Documents\GitHub\RayTracing\bin\Debug\net6.0\RayTracing.dll
+C:\Users\marta\Documents\GitHub\RayTracing\bin\Debug\net6.0\RayTracing.pdb
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.csproj.AssemblyReference.cache
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.AssemblyInfoInputs.cache
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.AssemblyInfo.cs
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.csproj.CoreCompileInputs.cache
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.dll
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\refint\RayTracing.dll
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.pdb
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\RayTracing.genruntimeconfig.cache
+C:\Users\marta\Documents\GitHub\RayTracing\obj\Debug\net6.0\ref\RayTracing.dll
