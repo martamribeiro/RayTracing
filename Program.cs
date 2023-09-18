@@ -1,22 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 class Program{
     static void Main(string[] args){
 
         Console.WriteLine("Insert the name of the scene description file: ");
-        string arquivoDeCena = Console.ReadLine();
+        string sceneFile = Console.ReadLine();
 
         try
         {
             // open file
-            using (StreamReader sr = new StreamReader(arquivoDeCena))
+            using (StreamReader sr = new StreamReader(sceneFile))
             {
-                string linha;
-                while ((linha = sr.ReadLine()) != null)
+                string line;
+                while ((line = sr.ReadLine()) != null)
                 {
                     //TODO: process each file line
-                    Console.WriteLine(linha); // write each file line to show the imported file
+                    Console.WriteLine(line); // write each file line to show the imported file
                 }
             }
         }
