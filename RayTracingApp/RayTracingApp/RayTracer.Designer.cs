@@ -30,7 +30,7 @@
         {
             this.sceneContainer = new System.Windows.Forms.Panel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.loadButton = new System.Windows.Forms.Button();
             this.groupImageResolution = new System.Windows.Forms.GroupBox();
             this.imageResolutionVertical = new System.Windows.Forms.NumericUpDown();
@@ -99,15 +99,14 @@
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(448, 23);
             this.progressBar.TabIndex = 0;
-            this.progressBar.Click += new System.EventHandler(this.progressBar1_Click);
             // 
-            // statusStrip
+            // statusStrip1
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip.TabIndex = 1;
-            this.statusStrip.Text = "statusStrip1";
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // loadButton
             // 
@@ -117,7 +116,6 @@
             this.loadButton.TabIndex = 2;
             this.loadButton.Text = "Load...";
             this.loadButton.UseVisualStyleBackColor = true;
-            this.loadButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupImageResolution
             // 
@@ -150,7 +148,6 @@
             this.labelImageResolutionVertical.Size = new System.Drawing.Size(45, 15);
             this.labelImageResolutionVertical.TabIndex = 5;
             this.labelImageResolutionVertical.Text = "Vertical";
-            this.labelImageResolutionVertical.Click += new System.EventHandler(this.label2_Click);
             // 
             // imageResolutionHorizontal
             // 
@@ -240,7 +237,6 @@
             this.groupCamera.TabIndex = 7;
             this.groupCamera.TabStop = false;
             this.groupCamera.Text = "Camera";
-            this.groupCamera.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // cameraFieldOfView
             // 
@@ -249,7 +245,6 @@
             this.cameraFieldOfView.Name = "cameraFieldOfView";
             this.cameraFieldOfView.Size = new System.Drawing.Size(46, 23);
             this.cameraFieldOfView.TabIndex = 6;
-            this.cameraFieldOfView.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // labelCameraFieldOfView
             // 
@@ -260,7 +255,6 @@
             this.labelCameraFieldOfView.Size = new System.Drawing.Size(74, 15);
             this.labelCameraFieldOfView.TabIndex = 5;
             this.labelCameraFieldOfView.Text = "Field of View";
-            this.labelCameraFieldOfView.Click += new System.EventHandler(this.label3_Click);
             // 
             // cameraDistance
             // 
@@ -279,7 +273,6 @@
             this.labelCameraDistance.Size = new System.Drawing.Size(52, 15);
             this.labelCameraDistance.TabIndex = 0;
             this.labelCameraDistance.Text = "Distance";
-            this.labelCameraDistance.Click += new System.EventHandler(this.label5_Click);
             // 
             // labelRayTracer
             // 
@@ -374,7 +367,6 @@
             this.transformationOrientationVertical.Name = "transformationOrientationVertical";
             this.transformationOrientationVertical.Size = new System.Drawing.Size(46, 23);
             this.transformationOrientationVertical.TabIndex = 10;
-            this.transformationOrientationVertical.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // labelTransformationOrientation
             // 
@@ -395,7 +387,6 @@
             this.labelTransformationOrientationVertical.Size = new System.Drawing.Size(45, 15);
             this.labelTransformationOrientationVertical.TabIndex = 9;
             this.labelTransformationOrientationVertical.Text = "Vertical";
-            this.labelTransformationOrientationVertical.Click += new System.EventHandler(this.label9_Click);
             // 
             // labelTransformationCenter
             // 
@@ -482,7 +473,6 @@
             this.lightAmbientReflection.TabIndex = 0;
             this.lightAmbientReflection.Text = "Ambient Reflection";
             this.lightAmbientReflection.UseVisualStyleBackColor = true;
-            this.lightAmbientReflection.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // RayTracer
             // 
@@ -499,7 +489,7 @@
             this.Controls.Add(this.saveImageButton);
             this.Controls.Add(this.groupImageResolution);
             this.Controls.Add(this.loadButton);
-            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.sceneContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RayTracer";
@@ -534,7 +524,7 @@
 
         private Panel sceneContainer;
         private ProgressBar progressBar;
-        private StatusStrip statusStrip;
+        private StatusStrip statusStrip1;
         private Button loadButton;
         private GroupBox groupImageResolution;
         private NumericUpDown imageResolutionVertical;
