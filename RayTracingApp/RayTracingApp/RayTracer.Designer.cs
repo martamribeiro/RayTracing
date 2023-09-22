@@ -459,7 +459,7 @@
             // 
             this.lightDiffuseReflection.AutoSize = true;
             this.lightDiffuseReflection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightDiffuseReflection.Location = new System.Drawing.Point(18, 47);
+            this.lightDiffuseReflection.Location = new System.Drawing.Point(13, 47);
             this.lightDiffuseReflection.Name = "lightDiffuseReflection";
             this.lightDiffuseReflection.Size = new System.Drawing.Size(119, 19);
             this.lightDiffuseReflection.TabIndex = 1;
@@ -470,7 +470,7 @@
             // 
             this.lightAmbientReflection.AutoSize = true;
             this.lightAmbientReflection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightAmbientReflection.Location = new System.Drawing.Point(18, 22);
+            this.lightAmbientReflection.Location = new System.Drawing.Point(13, 22);
             this.lightAmbientReflection.Name = "lightAmbientReflection";
             this.lightAmbientReflection.Size = new System.Drawing.Size(128, 19);
             this.lightAmbientReflection.TabIndex = 0;
