@@ -134,7 +134,7 @@
             // imageResolutionVertical
             // 
             this.imageResolutionVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.imageResolutionVertical.Location = new System.Drawing.Point(190, 21);
+            this.imageResolutionVertical.Location = new System.Drawing.Point(192, 21);
             this.imageResolutionVertical.Name = "imageResolutionVertical";
             this.imageResolutionVertical.Size = new System.Drawing.Size(46, 23);
             this.imageResolutionVertical.TabIndex = 6;
@@ -152,7 +152,7 @@
             // imageResolutionHorizontal
             // 
             this.imageResolutionHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.imageResolutionHorizontal.Location = new System.Drawing.Point(76, 21);
+            this.imageResolutionHorizontal.Location = new System.Drawing.Point(78, 21);
             this.imageResolutionHorizontal.Name = "imageResolutionHorizontal";
             this.imageResolutionHorizontal.Size = new System.Drawing.Size(46, 23);
             this.imageResolutionHorizontal.TabIndex = 4;
@@ -192,7 +192,7 @@
             this.groupRenderer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupRenderer.Location = new System.Drawing.Point(23, 371);
             this.groupRenderer.Name = "groupRenderer";
-            this.groupRenderer.Size = new System.Drawing.Size(166, 54);
+            this.groupRenderer.Size = new System.Drawing.Size(170, 54);
             this.groupRenderer.TabIndex = 7;
             this.groupRenderer.TabStop = false;
             this.groupRenderer.Text = "Renderer";
@@ -200,7 +200,7 @@
             // rendererRecursionDepth
             // 
             this.rendererRecursionDepth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rendererRecursionDepth.Location = new System.Drawing.Point(108, 19);
+            this.rendererRecursionDepth.Location = new System.Drawing.Point(112, 19);
             this.rendererRecursionDepth.Name = "rendererRecursionDepth";
             this.rendererRecursionDepth.Size = new System.Drawing.Size(46, 23);
             this.rendererRecursionDepth.TabIndex = 4;
@@ -209,7 +209,7 @@
             // 
             this.labelRendererRecursionDepth.AutoSize = true;
             this.labelRendererRecursionDepth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRendererRecursionDepth.Location = new System.Drawing.Point(8, 23);
+            this.labelRendererRecursionDepth.Location = new System.Drawing.Point(7, 23);
             this.labelRendererRecursionDepth.Name = "labelRendererRecursionDepth";
             this.labelRendererRecursionDepth.Size = new System.Drawing.Size(94, 15);
             this.labelRendererRecursionDepth.TabIndex = 0;
@@ -217,9 +217,9 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(195, 383);
+            this.startButton.Location = new System.Drawing.Point(199, 383);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(112, 32);
+            this.startButton.Size = new System.Drawing.Size(108, 32);
             this.startButton.TabIndex = 8;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -241,7 +241,7 @@
             // cameraFieldOfView
             // 
             this.cameraFieldOfView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cameraFieldOfView.Location = new System.Drawing.Point(218, 21);
+            this.cameraFieldOfView.Location = new System.Drawing.Point(223, 21);
             this.cameraFieldOfView.Name = "cameraFieldOfView";
             this.cameraFieldOfView.Size = new System.Drawing.Size(46, 23);
             this.cameraFieldOfView.TabIndex = 6;
@@ -259,7 +259,7 @@
             // cameraDistance
             // 
             this.cameraDistance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cameraDistance.Location = new System.Drawing.Point(76, 21);
+            this.cameraDistance.Location = new System.Drawing.Point(78, 21);
             this.cameraDistance.Name = "cameraDistance";
             this.cameraDistance.Size = new System.Drawing.Size(46, 23);
             this.cameraDistance.TabIndex = 4;
@@ -329,7 +329,7 @@
             // transformationCenterZ
             // 
             this.transformationCenterZ.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterZ.Location = new System.Drawing.Point(218, 86);
+            this.transformationCenterZ.Location = new System.Drawing.Point(220, 86);
             this.transformationCenterZ.Name = "transformationCenterZ";
             this.transformationCenterZ.Size = new System.Drawing.Size(46, 23);
             this.transformationCenterZ.TabIndex = 16;
@@ -337,7 +337,7 @@
             // transformationCenterY
             // 
             this.transformationCenterY.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterY.Location = new System.Drawing.Point(133, 86);
+            this.transformationCenterY.Location = new System.Drawing.Point(135, 86);
             this.transformationCenterY.Name = "transformationCenterY";
             this.transformationCenterY.Size = new System.Drawing.Size(46, 23);
             this.transformationCenterY.TabIndex = 14;
@@ -345,7 +345,7 @@
             // transformationCenterX
             // 
             this.transformationCenterX.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterX.Location = new System.Drawing.Point(46, 86);
+            this.transformationCenterX.Location = new System.Drawing.Point(48, 86);
             this.transformationCenterX.Name = "transformationCenterX";
             this.transformationCenterX.Size = new System.Drawing.Size(46, 23);
             this.transformationCenterX.TabIndex = 12;
@@ -363,7 +363,7 @@
             // transformationOrientationVertical
             // 
             this.transformationOrientationVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationOrientationVertical.Location = new System.Drawing.Point(218, 39);
+            this.transformationOrientationVertical.Location = new System.Drawing.Point(220, 39);
             this.transformationOrientationVertical.Name = "transformationOrientationVertical";
             this.transformationOrientationVertical.Size = new System.Drawing.Size(46, 23);
             this.transformationOrientationVertical.TabIndex = 10;
@@ -401,7 +401,7 @@
             // transformationOrientationHorizontal
             // 
             this.transformationOrientationHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationOrientationHorizontal.Location = new System.Drawing.Point(91, 39);
+            this.transformationOrientationHorizontal.Location = new System.Drawing.Point(93, 39);
             this.transformationOrientationHorizontal.Name = "transformationOrientationHorizontal";
             this.transformationOrientationHorizontal.Size = new System.Drawing.Size(46, 23);
             this.transformationOrientationHorizontal.TabIndex = 8;
