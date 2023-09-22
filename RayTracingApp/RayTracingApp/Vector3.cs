@@ -12,7 +12,7 @@ namespace RayTracingApp
         private float y;
         private float z;
 
-        //only read
+        //read only
         public float X => x;
         public float Y => y;
         public float Z => z;
