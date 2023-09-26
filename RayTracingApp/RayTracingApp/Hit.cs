@@ -36,5 +36,8 @@ namespace RayTracingApp
             this.color = color;
         }
 
+        //DUVIDA: material e normal estao comentados no TR-02 (pag.13) e TR-01 (pag.58)
+        //adiciono ou nao ???
+
     }
 }
