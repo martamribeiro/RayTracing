@@ -89,31 +89,36 @@
             // 
             this.sceneContainer.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.sceneContainer.Controls.Add(this.progressBar);
-            this.sceneContainer.Location = new System.Drawing.Point(331, 21);
+            this.sceneContainer.Location = new System.Drawing.Point(378, 28);
+            this.sceneContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.sceneContainer.Name = "sceneContainer";
-            this.sceneContainer.Size = new System.Drawing.Size(448, 344);
+            this.sceneContainer.Size = new System.Drawing.Size(512, 459);
             this.sceneContainer.TabIndex = 0;
             // 
             // progressBar
             // 
             this.progressBar.Location = new System.Drawing.Point(0, 0);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(448, 23);
+            this.progressBar.Size = new System.Drawing.Size(512, 31);
             this.progressBar.TabIndex = 0;
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 578);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(914, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(23, 64);
+            this.loadButton.Location = new System.Drawing.Point(26, 85);
+            this.loadButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(284, 32);
+            this.loadButton.Size = new System.Drawing.Size(325, 43);
             this.loadButton.TabIndex = 2;
             this.loadButton.Text = "Load...";
             this.loadButton.UseVisualStyleBackColor = true;
@@ -126,9 +131,11 @@
             this.groupImageResolution.Controls.Add(this.imageResolutionHorizontal);
             this.groupImageResolution.Controls.Add(this.labelImageResolutionHorizontal);
             this.groupImageResolution.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupImageResolution.Location = new System.Drawing.Point(331, 371);
+            this.groupImageResolution.Location = new System.Drawing.Point(378, 495);
+            this.groupImageResolution.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupImageResolution.Name = "groupImageResolution";
-            this.groupImageResolution.Size = new System.Drawing.Size(248, 54);
+            this.groupImageResolution.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupImageResolution.Size = new System.Drawing.Size(283, 72);
             this.groupImageResolution.TabIndex = 3;
             this.groupImageResolution.TabStop = false;
             this.groupImageResolution.Text = "Image Resolution";
@@ -136,53 +143,57 @@
             // imageResolutionVertical
             // 
             this.imageResolutionVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.imageResolutionVertical.Location = new System.Drawing.Point(192, 21);
+            this.imageResolutionVertical.Location = new System.Drawing.Point(219, 28);
+            this.imageResolutionVertical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.imageResolutionVertical.Name = "imageResolutionVertical";
-            this.imageResolutionVertical.Size = new System.Drawing.Size(46, 23);
+            this.imageResolutionVertical.Size = new System.Drawing.Size(53, 27);
             this.imageResolutionVertical.TabIndex = 6;
             // 
             // labelImageResolutionVertical
             // 
             this.labelImageResolutionVertical.AutoSize = true;
             this.labelImageResolutionVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelImageResolutionVertical.Location = new System.Drawing.Point(139, 23);
+            this.labelImageResolutionVertical.Location = new System.Drawing.Point(159, 31);
             this.labelImageResolutionVertical.Name = "labelImageResolutionVertical";
-            this.labelImageResolutionVertical.Size = new System.Drawing.Size(45, 15);
+            this.labelImageResolutionVertical.Size = new System.Drawing.Size(58, 20);
             this.labelImageResolutionVertical.TabIndex = 5;
             this.labelImageResolutionVertical.Text = "Vertical";
             // 
             // imageResolutionHorizontal
             // 
             this.imageResolutionHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.imageResolutionHorizontal.Location = new System.Drawing.Point(78, 21);
+            this.imageResolutionHorizontal.Location = new System.Drawing.Point(89, 28);
+            this.imageResolutionHorizontal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.imageResolutionHorizontal.Name = "imageResolutionHorizontal";
-            this.imageResolutionHorizontal.Size = new System.Drawing.Size(46, 23);
+            this.imageResolutionHorizontal.Size = new System.Drawing.Size(53, 27);
             this.imageResolutionHorizontal.TabIndex = 4;
             // 
             // labelImageResolutionHorizontal
             // 
             this.labelImageResolutionHorizontal.AutoSize = true;
             this.labelImageResolutionHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelImageResolutionHorizontal.Location = new System.Drawing.Point(8, 23);
+            this.labelImageResolutionHorizontal.Location = new System.Drawing.Point(9, 31);
             this.labelImageResolutionHorizontal.Name = "labelImageResolutionHorizontal";
-            this.labelImageResolutionHorizontal.Size = new System.Drawing.Size(62, 15);
+            this.labelImageResolutionHorizontal.Size = new System.Drawing.Size(79, 20);
             this.labelImageResolutionHorizontal.TabIndex = 0;
             this.labelImageResolutionHorizontal.Text = "Horizontal";
             // 
             // saveImageButton
             // 
-            this.saveImageButton.Location = new System.Drawing.Point(585, 383);
+            this.saveImageButton.Location = new System.Drawing.Point(669, 511);
+            this.saveImageButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.saveImageButton.Name = "saveImageButton";
-            this.saveImageButton.Size = new System.Drawing.Size(95, 32);
+            this.saveImageButton.Size = new System.Drawing.Size(109, 43);
             this.saveImageButton.TabIndex = 4;
             this.saveImageButton.Text = "Save Image...";
             this.saveImageButton.UseVisualStyleBackColor = true;
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(686, 383);
+            this.exitButton.Location = new System.Drawing.Point(784, 511);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(93, 32);
+            this.exitButton.Size = new System.Drawing.Size(106, 43);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -193,9 +204,11 @@
             this.groupRenderer.Controls.Add(this.rendererRecursionDepth);
             this.groupRenderer.Controls.Add(this.labelRendererRecursionDepth);
             this.groupRenderer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupRenderer.Location = new System.Drawing.Point(23, 371);
+            this.groupRenderer.Location = new System.Drawing.Point(26, 495);
+            this.groupRenderer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupRenderer.Name = "groupRenderer";
-            this.groupRenderer.Size = new System.Drawing.Size(170, 54);
+            this.groupRenderer.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupRenderer.Size = new System.Drawing.Size(194, 72);
             this.groupRenderer.TabIndex = 7;
             this.groupRenderer.TabStop = false;
             this.groupRenderer.Text = "Renderer";
@@ -203,26 +216,28 @@
             // rendererRecursionDepth
             // 
             this.rendererRecursionDepth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rendererRecursionDepth.Location = new System.Drawing.Point(112, 19);
+            this.rendererRecursionDepth.Location = new System.Drawing.Point(128, 25);
+            this.rendererRecursionDepth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rendererRecursionDepth.Name = "rendererRecursionDepth";
-            this.rendererRecursionDepth.Size = new System.Drawing.Size(46, 23);
+            this.rendererRecursionDepth.Size = new System.Drawing.Size(53, 27);
             this.rendererRecursionDepth.TabIndex = 4;
             // 
             // labelRendererRecursionDepth
             // 
             this.labelRendererRecursionDepth.AutoSize = true;
             this.labelRendererRecursionDepth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRendererRecursionDepth.Location = new System.Drawing.Point(7, 23);
+            this.labelRendererRecursionDepth.Location = new System.Drawing.Point(8, 31);
             this.labelRendererRecursionDepth.Name = "labelRendererRecursionDepth";
-            this.labelRendererRecursionDepth.Size = new System.Drawing.Size(94, 15);
+            this.labelRendererRecursionDepth.Size = new System.Drawing.Size(118, 20);
             this.labelRendererRecursionDepth.TabIndex = 0;
             this.labelRendererRecursionDepth.Text = "Recursion Depth";
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(199, 383);
+            this.startButton.Location = new System.Drawing.Point(227, 511);
+            this.startButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(108, 32);
+            this.startButton.Size = new System.Drawing.Size(123, 43);
             this.startButton.TabIndex = 8;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -234,9 +249,11 @@
             this.groupCamera.Controls.Add(this.cameraDistance);
             this.groupCamera.Controls.Add(this.labelCameraDistance);
             this.groupCamera.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupCamera.Location = new System.Drawing.Point(23, 102);
+            this.groupCamera.Location = new System.Drawing.Point(26, 136);
+            this.groupCamera.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupCamera.Name = "groupCamera";
-            this.groupCamera.Size = new System.Drawing.Size(284, 54);
+            this.groupCamera.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupCamera.Size = new System.Drawing.Size(325, 72);
             this.groupCamera.TabIndex = 7;
             this.groupCamera.TabStop = false;
             this.groupCamera.Text = "Camera";
@@ -244,36 +261,38 @@
             // cameraFieldOfView
             // 
             this.cameraFieldOfView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cameraFieldOfView.Location = new System.Drawing.Point(223, 21);
+            this.cameraFieldOfView.Location = new System.Drawing.Point(255, 28);
+            this.cameraFieldOfView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cameraFieldOfView.Name = "cameraFieldOfView";
-            this.cameraFieldOfView.Size = new System.Drawing.Size(46, 23);
+            this.cameraFieldOfView.Size = new System.Drawing.Size(53, 27);
             this.cameraFieldOfView.TabIndex = 6;
             // 
             // labelCameraFieldOfView
             // 
             this.labelCameraFieldOfView.AutoSize = true;
             this.labelCameraFieldOfView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelCameraFieldOfView.Location = new System.Drawing.Point(138, 23);
+            this.labelCameraFieldOfView.Location = new System.Drawing.Point(158, 31);
             this.labelCameraFieldOfView.Name = "labelCameraFieldOfView";
-            this.labelCameraFieldOfView.Size = new System.Drawing.Size(74, 15);
+            this.labelCameraFieldOfView.Size = new System.Drawing.Size(95, 20);
             this.labelCameraFieldOfView.TabIndex = 5;
             this.labelCameraFieldOfView.Text = "Field of View";
             // 
             // cameraDistance
             // 
             this.cameraDistance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cameraDistance.Location = new System.Drawing.Point(78, 21);
+            this.cameraDistance.Location = new System.Drawing.Point(89, 28);
+            this.cameraDistance.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cameraDistance.Name = "cameraDistance";
-            this.cameraDistance.Size = new System.Drawing.Size(46, 23);
+            this.cameraDistance.Size = new System.Drawing.Size(53, 27);
             this.cameraDistance.TabIndex = 4;
             // 
             // labelCameraDistance
             // 
             this.labelCameraDistance.AutoSize = true;
             this.labelCameraDistance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelCameraDistance.Location = new System.Drawing.Point(18, 23);
+            this.labelCameraDistance.Location = new System.Drawing.Point(21, 31);
             this.labelCameraDistance.Name = "labelCameraDistance";
-            this.labelCameraDistance.Size = new System.Drawing.Size(52, 15);
+            this.labelCameraDistance.Size = new System.Drawing.Size(66, 20);
             this.labelCameraDistance.TabIndex = 0;
             this.labelCameraDistance.Text = "Distance";
             // 
@@ -281,9 +300,9 @@
             // 
             this.labelRayTracer.AutoSize = true;
             this.labelRayTracer.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelRayTracer.Location = new System.Drawing.Point(91, 13);
+            this.labelRayTracer.Location = new System.Drawing.Point(104, 17);
             this.labelRayTracer.Name = "labelRayTracer";
-            this.labelRayTracer.Size = new System.Drawing.Size(144, 37);
+            this.labelRayTracer.Size = new System.Drawing.Size(175, 46);
             this.labelRayTracer.TabIndex = 9;
             this.labelRayTracer.Text = "RayTracer";
             // 
@@ -302,9 +321,11 @@
             this.groupTransformation.Controls.Add(this.transformationOrientationHorizontal);
             this.groupTransformation.Controls.Add(this.labelTransformationOrientationHorizontal);
             this.groupTransformation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupTransformation.Location = new System.Drawing.Point(23, 162);
+            this.groupTransformation.Location = new System.Drawing.Point(26, 216);
+            this.groupTransformation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupTransformation.Name = "groupTransformation";
-            this.groupTransformation.Size = new System.Drawing.Size(284, 118);
+            this.groupTransformation.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupTransformation.Size = new System.Drawing.Size(325, 157);
             this.groupTransformation.TabIndex = 8;
             this.groupTransformation.TabStop = false;
             this.groupTransformation.Text = "Transformation";
@@ -313,9 +334,9 @@
             // 
             this.labelTransformationCenterZ.AutoSize = true;
             this.labelTransformationCenterZ.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationCenterZ.Location = new System.Drawing.Point(198, 88);
+            this.labelTransformationCenterZ.Location = new System.Drawing.Point(226, 117);
             this.labelTransformationCenterZ.Name = "labelTransformationCenterZ";
-            this.labelTransformationCenterZ.Size = new System.Drawing.Size(14, 15);
+            this.labelTransformationCenterZ.Size = new System.Drawing.Size(18, 20);
             this.labelTransformationCenterZ.TabIndex = 18;
             this.labelTransformationCenterZ.Text = "Z";
             // 
@@ -323,61 +344,65 @@
             // 
             this.labelTransformationCenterY.AutoSize = true;
             this.labelTransformationCenterY.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationCenterY.Location = new System.Drawing.Point(113, 88);
+            this.labelTransformationCenterY.Location = new System.Drawing.Point(129, 117);
             this.labelTransformationCenterY.Name = "labelTransformationCenterY";
-            this.labelTransformationCenterY.Size = new System.Drawing.Size(14, 15);
+            this.labelTransformationCenterY.Size = new System.Drawing.Size(17, 20);
             this.labelTransformationCenterY.TabIndex = 17;
             this.labelTransformationCenterY.Text = "Y";
             // 
             // transformationCenterZ
             // 
             this.transformationCenterZ.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterZ.Location = new System.Drawing.Point(220, 86);
+            this.transformationCenterZ.Location = new System.Drawing.Point(251, 115);
+            this.transformationCenterZ.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transformationCenterZ.Name = "transformationCenterZ";
-            this.transformationCenterZ.Size = new System.Drawing.Size(46, 23);
+            this.transformationCenterZ.Size = new System.Drawing.Size(53, 27);
             this.transformationCenterZ.TabIndex = 16;
             // 
             // transformationCenterY
             // 
             this.transformationCenterY.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterY.Location = new System.Drawing.Point(135, 86);
+            this.transformationCenterY.Location = new System.Drawing.Point(154, 115);
+            this.transformationCenterY.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transformationCenterY.Name = "transformationCenterY";
-            this.transformationCenterY.Size = new System.Drawing.Size(46, 23);
+            this.transformationCenterY.Size = new System.Drawing.Size(53, 27);
             this.transformationCenterY.TabIndex = 14;
             // 
             // transformationCenterX
             // 
             this.transformationCenterX.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationCenterX.Location = new System.Drawing.Point(48, 86);
+            this.transformationCenterX.Location = new System.Drawing.Point(55, 115);
+            this.transformationCenterX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transformationCenterX.Name = "transformationCenterX";
-            this.transformationCenterX.Size = new System.Drawing.Size(46, 23);
+            this.transformationCenterX.Size = new System.Drawing.Size(53, 27);
             this.transformationCenterX.TabIndex = 12;
             // 
             // labelTransformationCenterX
             // 
             this.labelTransformationCenterX.AutoSize = true;
             this.labelTransformationCenterX.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationCenterX.Location = new System.Drawing.Point(26, 88);
+            this.labelTransformationCenterX.Location = new System.Drawing.Point(30, 117);
             this.labelTransformationCenterX.Name = "labelTransformationCenterX";
-            this.labelTransformationCenterX.Size = new System.Drawing.Size(14, 15);
+            this.labelTransformationCenterX.Size = new System.Drawing.Size(18, 20);
             this.labelTransformationCenterX.TabIndex = 11;
             this.labelTransformationCenterX.Text = "X";
             // 
             // transformationOrientationVertical
             // 
             this.transformationOrientationVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationOrientationVertical.Location = new System.Drawing.Point(220, 39);
+            this.transformationOrientationVertical.Location = new System.Drawing.Point(251, 52);
+            this.transformationOrientationVertical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transformationOrientationVertical.Name = "transformationOrientationVertical";
-            this.transformationOrientationVertical.Size = new System.Drawing.Size(46, 23);
+            this.transformationOrientationVertical.Size = new System.Drawing.Size(53, 27);
             this.transformationOrientationVertical.TabIndex = 10;
             // 
             // labelTransformationOrientation
             // 
             this.labelTransformationOrientation.AutoSize = true;
             this.labelTransformationOrientation.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationOrientation.Location = new System.Drawing.Point(18, 19);
+            this.labelTransformationOrientation.Location = new System.Drawing.Point(21, 25);
             this.labelTransformationOrientation.Name = "labelTransformationOrientation";
-            this.labelTransformationOrientation.Size = new System.Drawing.Size(67, 15);
+            this.labelTransformationOrientation.Size = new System.Drawing.Size(87, 20);
             this.labelTransformationOrientation.TabIndex = 6;
             this.labelTransformationOrientation.Text = "Orientation";
             // 
@@ -385,9 +410,9 @@
             // 
             this.labelTransformationOrientationVertical.AutoSize = true;
             this.labelTransformationOrientationVertical.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationOrientationVertical.Location = new System.Drawing.Point(167, 41);
+            this.labelTransformationOrientationVertical.Location = new System.Drawing.Point(191, 55);
             this.labelTransformationOrientationVertical.Name = "labelTransformationOrientationVertical";
-            this.labelTransformationOrientationVertical.Size = new System.Drawing.Size(45, 15);
+            this.labelTransformationOrientationVertical.Size = new System.Drawing.Size(58, 20);
             this.labelTransformationOrientationVertical.TabIndex = 9;
             this.labelTransformationOrientationVertical.Text = "Vertical";
             // 
@@ -395,27 +420,28 @@
             // 
             this.labelTransformationCenter.AutoSize = true;
             this.labelTransformationCenter.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationCenter.Location = new System.Drawing.Point(18, 65);
+            this.labelTransformationCenter.Location = new System.Drawing.Point(21, 87);
             this.labelTransformationCenter.Name = "labelTransformationCenter";
-            this.labelTransformationCenter.Size = new System.Drawing.Size(41, 15);
+            this.labelTransformationCenter.Size = new System.Drawing.Size(54, 20);
             this.labelTransformationCenter.TabIndex = 5;
             this.labelTransformationCenter.Text = "Center";
             // 
             // transformationOrientationHorizontal
             // 
             this.transformationOrientationHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.transformationOrientationHorizontal.Location = new System.Drawing.Point(93, 39);
+            this.transformationOrientationHorizontal.Location = new System.Drawing.Point(106, 52);
+            this.transformationOrientationHorizontal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transformationOrientationHorizontal.Name = "transformationOrientationHorizontal";
-            this.transformationOrientationHorizontal.Size = new System.Drawing.Size(46, 23);
+            this.transformationOrientationHorizontal.Size = new System.Drawing.Size(53, 27);
             this.transformationOrientationHorizontal.TabIndex = 8;
             // 
             // labelTransformationOrientationHorizontal
             // 
             this.labelTransformationOrientationHorizontal.AutoSize = true;
             this.labelTransformationOrientationHorizontal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTransformationOrientationHorizontal.Location = new System.Drawing.Point(23, 41);
+            this.labelTransformationOrientationHorizontal.Location = new System.Drawing.Point(26, 55);
             this.labelTransformationOrientationHorizontal.Name = "labelTransformationOrientationHorizontal";
-            this.labelTransformationOrientationHorizontal.Size = new System.Drawing.Size(62, 15);
+            this.labelTransformationOrientationHorizontal.Size = new System.Drawing.Size(79, 20);
             this.labelTransformationOrientationHorizontal.TabIndex = 7;
             this.labelTransformationOrientationHorizontal.Text = "Horizontal";
             // 
@@ -426,9 +452,11 @@
             this.groupLight.Controls.Add(this.lightDiffuseReflection);
             this.groupLight.Controls.Add(this.lightAmbientReflection);
             this.groupLight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupLight.Location = new System.Drawing.Point(23, 286);
+            this.groupLight.Location = new System.Drawing.Point(26, 381);
+            this.groupLight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupLight.Name = "groupLight";
-            this.groupLight.Size = new System.Drawing.Size(284, 79);
+            this.groupLight.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupLight.Size = new System.Drawing.Size(325, 105);
             this.groupLight.TabIndex = 9;
             this.groupLight.TabStop = false;
             this.groupLight.Text = "Light";
@@ -437,9 +465,10 @@
             // 
             this.lightRefraction.AutoSize = true;
             this.lightRefraction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightRefraction.Location = new System.Drawing.Point(152, 47);
+            this.lightRefraction.Location = new System.Drawing.Point(174, 63);
+            this.lightRefraction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lightRefraction.Name = "lightRefraction";
-            this.lightRefraction.Size = new System.Drawing.Size(80, 19);
+            this.lightRefraction.Size = new System.Drawing.Size(99, 24);
             this.lightRefraction.TabIndex = 3;
             this.lightRefraction.Text = "Refraction";
             this.lightRefraction.UseVisualStyleBackColor = true;
@@ -448,9 +477,10 @@
             // 
             this.lightSpecularReflection.AutoSize = true;
             this.lightSpecularReflection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightSpecularReflection.Location = new System.Drawing.Point(152, 22);
+            this.lightSpecularReflection.Location = new System.Drawing.Point(174, 29);
+            this.lightSpecularReflection.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lightSpecularReflection.Name = "lightSpecularReflection";
-            this.lightSpecularReflection.Size = new System.Drawing.Size(127, 19);
+            this.lightSpecularReflection.Size = new System.Drawing.Size(159, 24);
             this.lightSpecularReflection.TabIndex = 2;
             this.lightSpecularReflection.Text = "Specular Reflection";
             this.lightSpecularReflection.UseVisualStyleBackColor = true;
@@ -459,9 +489,10 @@
             // 
             this.lightDiffuseReflection.AutoSize = true;
             this.lightDiffuseReflection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightDiffuseReflection.Location = new System.Drawing.Point(13, 47);
+            this.lightDiffuseReflection.Location = new System.Drawing.Point(15, 63);
+            this.lightDiffuseReflection.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lightDiffuseReflection.Name = "lightDiffuseReflection";
-            this.lightDiffuseReflection.Size = new System.Drawing.Size(119, 19);
+            this.lightDiffuseReflection.Size = new System.Drawing.Size(149, 24);
             this.lightDiffuseReflection.TabIndex = 1;
             this.lightDiffuseReflection.Text = "Diffuse Reflection";
             this.lightDiffuseReflection.UseVisualStyleBackColor = true;
@@ -470,18 +501,19 @@
             // 
             this.lightAmbientReflection.AutoSize = true;
             this.lightAmbientReflection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lightAmbientReflection.Location = new System.Drawing.Point(13, 22);
+            this.lightAmbientReflection.Location = new System.Drawing.Point(15, 29);
+            this.lightAmbientReflection.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lightAmbientReflection.Name = "lightAmbientReflection";
-            this.lightAmbientReflection.Size = new System.Drawing.Size(128, 19);
+            this.lightAmbientReflection.Size = new System.Drawing.Size(159, 24);
             this.lightAmbientReflection.TabIndex = 0;
             this.lightAmbientReflection.Text = "Ambient Reflection";
             this.lightAmbientReflection.UseVisualStyleBackColor = true;
             // 
             // RayTracer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
             this.Controls.Add(this.groupLight);
             this.Controls.Add(this.groupTransformation);
             this.Controls.Add(this.labelRayTracer);
@@ -495,6 +527,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.sceneContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "RayTracer";
             this.Text = "Form1";
             this.sceneContainer.ResumeLayout(false);
