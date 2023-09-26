@@ -8,9 +8,9 @@ namespace RayTracingApp
 {
     internal class Color3
     {
-        public double ColR { get; set; }
-        public double ColG { get; set; }
-        public double ColB { get; set; }
+        public double ColR { get; }
+        public double ColG { get; }
+        public double ColB { get; }
 
         public Color3(double colR, double colG, double colB)
         {

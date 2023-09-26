@@ -8,6 +8,12 @@ namespace RayTracingApp
 {
     internal class Hit
     {
-        //to develop
+        
+        //hit color
+        public Color3 color { get; set; }
+        //material
+        public Material material { get; set; }
+        //normal
+        public Vector3 vector3 { get; set; }
     }
 }
