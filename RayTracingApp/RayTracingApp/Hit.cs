@@ -8,12 +8,33 @@ namespace RayTracingApp
 {
     internal class Hit
     {
-        
+        //distance from the origin of the ray to the point of intersection
+        private float t;
         //hit color
-        public Color3 color { get; set; }
-        //material
-        public Material material { get; set; }
-        //normal
-        public Vector3 vector3 { get; set; }
+        private Color3 color;
+
+        //read only
+        public float T
+        {
+            get { return t; }
+        }
+        public Color3 Color
+        {
+            get { return color; }
+        }
+
+        public Hit(float t, Color3 color)
+        {
+            this.t = t;
+            this.color = color;
+        }
+
+        //modifier
+        public void Modifier(float t, Color3 color)
+        {
+            this.t = t;
+            this.color = color;
+        }
+
     }
 }

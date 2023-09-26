@@ -8,16 +8,30 @@ namespace RayTracingApp
 {
     internal class Color3
     {
-        public double ColR { get; }
-        public double ColG { get; }
-        public double ColB { get; }
+        private double colR;
+        private double colG;
+        private double colB;
+
+        //read only
+        public double ColR
+        {
+            get { return colR; }
+        }
+        public double ColG
+        {
+            get { return colG; }
+        }
+        public double ColB
+        {
+            get { return colB; }
+        }
 
         public Color3(double colR, double colG, double colB)
         {
             //rgb color
-            ColR = colR;
-            ColG = colG;
-            ColB = colB;
+            colR = colR;
+            colG = colG;
+            colB = colB;
         }
     }
 }
