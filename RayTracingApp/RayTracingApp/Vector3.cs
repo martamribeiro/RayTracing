@@ -13,9 +13,18 @@ namespace RayTracingApp
         private float z;
 
         //read only
-        public float X => x;
-        public float Y => y;
-        public float Z => z;
+        public float X
+        {
+            get { return x; }
+        }
+        public float Y
+        {
+            get { return y; }
+        }
+        public float Z
+        {
+            get { return z; }
+        }
 
         public Vector3(float x, float y, float z)
         {

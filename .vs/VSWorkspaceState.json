@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\RayTracingApp"
+    "\\RayTracingApp",
+    "\\RayTracingApp\\RayTracingApp"
   ],
-  "SelectedNode": "\\RayTracingApp\\RayTracingApp.sln",
+  "SelectedNode": "\\RayTracingApp\\RayTracingApp\\RayTracer.cs",
   "PreviewInSolutionExplorer": false
 }
