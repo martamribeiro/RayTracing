@@ -6,8 +6,37 @@ using System.Threading.Tasks;
 
 namespace RayTracingApp
 {
-    internal class Sphere
+    internal class Sphere : Object3D
     {
-        //to develop
+        // The Sphere's Material
+        private Material material;
+
+        // The Transformation applied to the Sphere
+        private Transformation transformation;
+
+        // Getters
+        public Material Material { get { return material; } }
+
+        public Transformation Transformation { get { return transformation; } }
+
+        // Constructor without the Transformation, defaults to using the Identity Transformation
+        public Sphere(Material material)
+        {
+            this.material = material;
+        }
+
+        // Constructor
+        public Sphere(Material material, Transformation transformation) 
+        { 
+            this.material = material;
+            this.transformation = transformation;
+        }
+
+        // TODO: Third Stage of the assignment 
+        // Returns True if the Ray intersects with the Box
+        public override bool Intersect(Ray ray, Hit hit, float tmin)
+        {
+            return false;
+        }
     }
 }
