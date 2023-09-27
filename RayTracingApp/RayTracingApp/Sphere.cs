@@ -12,7 +12,7 @@ namespace RayTracingApp
         private Material material;
 
         // The Transformation applied to the Sphere
-        private Transformation transformation;
+        private Transformation transformation = new Transformation();
 
         // Getters
         public Material Material { get { return material; } }
