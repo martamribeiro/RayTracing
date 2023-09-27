@@ -14,6 +14,11 @@ namespace RayTracingApp
         // The Transformation to be applied to all the Mesh's Triangles
         private Transformation transformation = new Transformation();
 
+        // Getters
+        public List<Triangle> Triangles { get { return triangles; } }
+
+        public Transformation Transformation { get { return transformation; } }
+
         // Empty Constructor, defaults the Transformation to the Identity Matrix
         public Mesh() { }
 
