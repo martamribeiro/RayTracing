@@ -16,13 +16,18 @@ namespace RayTracingApp
             get { return transformationMatrix; }
         }
 
+        public Transformation()
+        {
+            this.transformationMatrix = IdentityMatrix();
+        }
+
         public Transformation(double[,] transformationMatrix)
         {
             this.transformationMatrix = transformationMatrix;
         }
 
-        // Creates and Returns a new Identity Transformation
-        public Transformation identityMatrix()
+        // Creates and Returns a new Identity Matrix
+        public double[,] IdentityMatrix()
         {
             double[,] identityMatrix = {
                 { 1.0, 0.0, 0.0, 0.0},
@@ -31,7 +36,7 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0},
             };
 
-            return new Transformation(identityMatrix);
+            return identityMatrix;
         }
 
         // Creates and Returns a new Transformation by applying the given Translation to the current TransformationMatrix
