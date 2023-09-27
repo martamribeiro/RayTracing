@@ -9,14 +9,41 @@ namespace RayTracingApp
     internal class Material
     {
         //rgb color
-        public Color3 color { get; set; }
+        private Color3 color;
         //light percentages:
-        public float ambientLight { get; set; } 
-        public float diffuseLight { get; set; } 
-        public float specularLight { get; set; } 
-        public float refractedLight { get; set; } 
+        private float ambientLight;
+        private float diffuseLight; 
+        private float specularLight; 
+        private float refractedLight; 
         //refractive index
-        public float refractiveIndex { get; set; } 
+        private float refractiveIndex;
+        
+        //read only
+
+        public Color3 Color
+        {
+            get { return color; }
+        }
+        public float AmbientLight
+        {
+            get { return ambientLight; }
+        }
+        public float DiffuseLight
+        {
+            get { return diffuseLight; }
+        }
+        public float SpecularLight
+        {
+            get { return specularLight; }
+        }
+        public float RefractedLight
+        {
+            get { return refractedLight; }
+        }
+        public float RefractiveIndex
+        {
+            get { return refractiveIndex; }
+        }
 
         public Material(Color3 color, float ambientLight, float diffuseLight, floar specularLight, float refractedLight, float refractiveIndex)
         {
