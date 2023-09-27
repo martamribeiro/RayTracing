@@ -11,9 +11,9 @@ namespace RayTracingApp
         // Matrix used to represent the transformation
         private double[,] transformationMatrix = new double[4, 4];
 
-        public double[] TransformationMatrix
+        public double[,] TransformationMatrix
         {
-            get;
+            get { return transformationMatrix; }
         }
 
         public Transformation(double[,] transformationMatrix)
