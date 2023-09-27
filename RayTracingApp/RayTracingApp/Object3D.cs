@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RayTracingApp
 {
-    internal class Object3D
+    internal abstract class Object3D
     {
-        //to develop
+        public abstract bool Intersect(Ray ray, Hit hit, float tmin);
     }
 }
