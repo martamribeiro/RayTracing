@@ -45,7 +45,7 @@ namespace RayTracingApp
             get { return refractiveIndex; }
         }
 
-        public Material(Color3 color, float ambientLight, float diffuseLight, floar specularLight, float refractedLight, float refractiveIndex)
+        public Material(Color3 color, float ambientLight, float diffuseLight, float specularLight, float refractedLight, float refractiveIndex)
         {
             this.color = color;
             this.ambientLight = ambientLight;
