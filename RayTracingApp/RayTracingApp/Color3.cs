@@ -29,9 +29,9 @@ namespace RayTracingApp
         public Color3(double colR, double colG, double colB)
         {
             //rgb color
-            colR = colR;
-            colG = colG;
-            colB = colB;
+            this.colR = colR;
+            this.colG = colG;
+            this.colB = colB;
         }
     }
 }
