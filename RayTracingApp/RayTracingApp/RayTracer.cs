@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Globalization;
+
 namespace RayTracingApp
 {
     public partial class RayTracer : Form
@@ -17,6 +20,9 @@ namespace RayTracingApp
             openFile.DefaultExt = "txt";
             if(openFile.ShowDialog() == DialogResult.OK)
             {
+                // Used to recognize the "." as the decimal separator
+                CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
                 //read file content
                 string[] lines = File.ReadAllLines(openFile.FileName);
 
@@ -88,7 +94,25 @@ namespace RayTracingApp
 
         private void ProcessImageSection(List<string> sectionLines)
         {
-            //process the image section here
+            /* The SectionLines Format:
+             * Image
+             * {
+             * horizontal vertical
+             * red green blue
+             * }
+             */
+
+            // Get the resolution strings by spliting the corresponding line
+            string[] resolutionStrings = sectionLines[2].Split(' ');
+
+            // Get the color strings by spliting the corresponding line
+            string[] colorStrings = sectionLines[3].Split(' ');
+
+            // Construct the color. Need to convert the Strings to Doubles
+            Color3 color = new Color3(Convert.ToDouble(colorStrings[0]), Convert.ToDouble(colorStrings[1]), Convert.ToDouble(colorStrings[2]));
+
+            // Construct the Image using the Color and by converting the resolution strings to Int
+            Image image = new Image(Convert.ToInt32(resolutionStrings[0]), Convert.ToInt32(resolutionStrings[1]), color);
         }
 
         private void ProcessTransformationSection(List<string> sectionLines)
