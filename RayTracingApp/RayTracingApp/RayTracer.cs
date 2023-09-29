@@ -117,7 +117,47 @@ namespace RayTracingApp
 
         private void ProcessTransformationSection(List<string> sectionLines)
         {
-            //process the transformation section here
+            /* The SectionLines Format (All lines are optional):
+             * Transformation
+             * {
+             * T x y z 
+             * Rx angle
+             * Ry angle
+             * Rz angle
+             * S x y z
+             * }
+             */
+
+            // Constructs the Identity Transformation
+            Transformation transformation = new Transformation();
+
+            // For every line between the second and last lines
+            for (int i = 2; i < sectionLines.Count - 1; i++)
+            {
+                string[] splitedLine = sectionLines[i].Split(" ");
+
+                switch (splitedLine[0])
+                {
+                    case "T": // Translation
+                        transformation = transformation.Translate(Convert.ToDouble(splitedLine[1]), Convert.ToDouble(splitedLine[2]), Convert.ToDouble(splitedLine[3]));
+                        break;
+                    case "Rx": // Rotate in the X axis
+                        transformation = transformation.RotateX(Convert.ToDouble(splitedLine[1]));
+                        break;
+                    case "Ry": // Rotate in the Y axis
+                        transformation = transformation.RotateY(Convert.ToDouble(splitedLine[1]));
+                        break;
+                    case "Rz": // Rotate in the Z axis
+                        transformation = transformation.RotateZ(Convert.ToDouble(splitedLine[1]));
+                        break;
+                    case "S": // Scale
+                        transformation = transformation.Scale(Convert.ToDouble(splitedLine[1]), Convert.ToDouble(splitedLine[2]), Convert.ToDouble(splitedLine[3]));
+                        break;
+                    default:
+                        //unkwnown
+                        break;
+                }
+            }
         }
 
         private void ProcessMaterialSection(List<string> sectionLines)
