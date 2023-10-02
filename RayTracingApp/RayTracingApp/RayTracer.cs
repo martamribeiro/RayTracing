@@ -205,17 +205,49 @@ namespace RayTracingApp
                 (float)Convert.ToDouble(coefficientsStrings[4])
                 );
 
-            scene.AddMaterial(material);
+            this.scene.AddMaterial(material);
         }
 
         private void ProcessCameraSection(List<string> sectionLines)
         {
-            //process the camera section here
+            /* The SectionLines Format:
+             * Camera
+             * {
+             * transformation
+             * distance
+             * fov
+             * }
+             */
+
+            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+
+            Camera camera = new Camera(transformation, Convert.ToDouble(sectionLines[3]), Convert.ToDouble(sectionLines[4]));
+
+            this.scene.AddCamera(camera);
         }
 
         private void ProcessLightSection(List<string> sectionLines)
         {
-            //process the light section here
+            /* The SectionLines Format:
+             * Light
+             * {
+             * transformation
+             * red green blue
+             * }
+             */
+
+            // Get the Transformation index and the corresponding Transformation (stored in the scene)
+            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+
+            // Get the color strings by spliting the corresponding line
+            string[] colorStrings = sectionLines[3].Split(' ');
+
+            // Construct the color. Need to convert the Strings to Doubles
+            Color3 color = new Color3(Convert.ToDouble(colorStrings[0]), Convert.ToDouble(colorStrings[1]), Convert.ToDouble(colorStrings[2]));
+
+            Light light = new Light(transformation, color);
+
+            this.scene.AddLight(light);
         }
 
         private void ProcessTrianglesSection(List<string> sectionLines)
