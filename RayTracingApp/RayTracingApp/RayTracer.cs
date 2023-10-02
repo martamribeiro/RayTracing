@@ -59,15 +59,19 @@ namespace RayTracingApp
                             sections.Add(currentSectionLines);
                         }
                         
-                        //clear list and go to next section
-                        currentSectionLines.Clear();
+                        //create a new list and go to next section
+                        currentSectionLines = new List<string>();
                     }
                 }
 
                 foreach (List<string> section in sections)
                 {
-                    ProcessSection(section);
+                    if (section.Count() > 0) {
+                        ProcessSection(section);
+                    }
                 }
+
+                Debug.WriteLine("Finished Constructing Scene");
             }
         }
 
@@ -194,7 +198,7 @@ namespace RayTracingApp
             // Construct the color. Need to convert the Strings to Doubles
             Color3 color = new Color3(Convert.ToDouble(colorStrings[0]), Convert.ToDouble(colorStrings[1]), Convert.ToDouble(colorStrings[2]));
 
-            string[] coefficientsStrings = sectionLines[2].Split(' ');
+            string[] coefficientsStrings = sectionLines[3].Split(' ');
 
             Material material = new Material(
                 color,
@@ -265,12 +269,32 @@ namespace RayTracingApp
              * }
              */
 
+            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
+            Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+
+            Box box = new Box(material, transformation);
+
+            this.scene.AddObject(box);
         }
 
         private void ProcessSphereSection(List<string> sectionLines)
         {
-            //process the sphere section here
+            /* The SectionLines Format (All lines are optional):
+             * Sphere
+             * {
+             * Transformation (index)
+             * Material (index)
+             * }
+             */
+
+            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+
+            Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+
+            Sphere sphere = new Sphere(material, transformation);
+
+            this.scene.AddObject(sphere);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
