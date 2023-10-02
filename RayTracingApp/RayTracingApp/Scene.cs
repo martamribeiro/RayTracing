@@ -12,19 +12,26 @@ namespace RayTracingApp
         private List<Transformation> transformations = new List<Transformation>();
         private List<Object3D> objects = new List<Object3D>();
         private List<Light> lights = new List<Light>();
+        private Image image = null;
         private Camera camera = null;
         
         // Constructor
         public Scene() {}
 
-        public void addCamera(Camera camera) { this.camera = camera; }
+        public void AddCamera(Camera camera) { this.camera = camera; }
 
-        public void addMaterial(Material material) { this.materials.Add(material); }
+        public void AddImage(Image image) { this.image = image; }
 
-        public void addTransformation(Transformation transformation) { this.transformations.Add(transformation);}
+        public void AddMaterial(Material material) { this.materials.Add(material); }
 
-        public void addObject(Object3D object) { this.objects.Add(object); }
+        public void AddTransformation(Transformation transformation) { this.transformations.Add(transformation);}
 
-        public void addLight(Light light) { this.lights.Add(light); }
+        public void AddObject(Object3D newObject) { this.objects.Add(newObject); }
+
+        public void AddLight(Light light) { this.lights.Add(light); }
+
+        public Material GetMaterialByIndex(int index) { return this.materials[index];}
+
+        public Transformation GetTransformationByIndex(int index) { return this.transformations[index];}
     }
 }

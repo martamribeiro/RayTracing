@@ -5,8 +5,11 @@ namespace RayTracingApp
 {
     public partial class RayTracer : Form
     {
+        private Scene scene;
+
         public RayTracer()
         {
+            this.scene = new Scene();
             InitializeComponent();
         }
 
@@ -28,6 +31,7 @@ namespace RayTracingApp
 
                 //section lines
                 List<string> currentSectionLines = new List<string>();
+                List<List<string>> sections = new List<List<string>>();
 
                 //parsing
                 foreach (string line in lines)
@@ -47,12 +51,22 @@ namespace RayTracingApp
                     //if section ended
                     if (trimmedLine.EndsWith("}"))
                     {
-                        //process section
-                        ProcessSection(currentSectionLines);
-
+                        if (currentSectionLines.First() == "Material" || currentSectionLines.First() == "Transformation")
+                        {
+                            //process section
+                            ProcessSection(currentSectionLines);
+                        } else {
+                            sections.Add(currentSectionLines);
+                        }
+                        
                         //clear list and go to next section
                         currentSectionLines.Clear();
                     }
+                }
+
+                foreach (List<string> section in sections)
+                {
+                    ProcessSection(section);
                 }
             }
         }
@@ -113,6 +127,8 @@ namespace RayTracingApp
 
             // Construct the Image using the Color and by converting the resolution strings to Int
             Image image = new Image(Convert.ToInt32(resolutionStrings[0]), Convert.ToInt32(resolutionStrings[1]), color);
+
+            this.scene.AddImage(image);
         }
 
         private void ProcessTransformationSection(List<string> sectionLines)
@@ -158,11 +174,38 @@ namespace RayTracingApp
                         break;
                 }
             }
+
+            this.scene.AddTransformation(transformation);
         }
 
         private void ProcessMaterialSection(List<string> sectionLines)
         {
-            //process the material section here
+            /* The SectionLines Format:
+             * Material
+             * {
+             * red green blue
+             * ambient diffuse specular refraction refraction_index
+             * }
+             */
+
+            // Get the color strings by spliting the corresponding line
+            string[] colorStrings = sectionLines[2].Split(' ');
+
+            // Construct the color. Need to convert the Strings to Doubles
+            Color3 color = new Color3(Convert.ToDouble(colorStrings[0]), Convert.ToDouble(colorStrings[1]), Convert.ToDouble(colorStrings[2]));
+
+            string[] coefficientsStrings = sectionLines[2].Split(' ');
+
+            Material material = new Material(
+                color,
+                (float)Convert.ToDouble(coefficientsStrings[0]),
+                (float)Convert.ToDouble(coefficientsStrings[1]),
+                (float)Convert.ToDouble(coefficientsStrings[2]),
+                (float)Convert.ToDouble(coefficientsStrings[3]),
+                (float)Convert.ToDouble(coefficientsStrings[4])
+                );
+
+            scene.AddMaterial(material);
         }
 
         private void ProcessCameraSection(List<string> sectionLines)
@@ -182,7 +225,15 @@ namespace RayTracingApp
 
         private void ProcessBoxSection(List<string> sectionLines)
         {
-            //process the box section here
+            /* The SectionLines Format (All lines are optional):
+             * Box
+             * {
+             * Transformation (index)
+             * Material (index)
+             * }
+             */
+
+
         }
 
         private void ProcessSphereSection(List<string> sectionLines)
