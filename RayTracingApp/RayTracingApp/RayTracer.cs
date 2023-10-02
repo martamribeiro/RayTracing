@@ -256,12 +256,54 @@ namespace RayTracingApp
 
         private void ProcessTrianglesSection(List<string> sectionLines)
         {
-            //process the triangles section here
+            /* The SectionLines Format:
+             * Triangles
+             * {
+             * Transformation (index)
+             * Material (index)
+             * x1 y1 z1
+             * x2 y2 z2
+             * x3 y3 z3
+             * Material (index)
+             * x4 y4 z4
+             * x5 y5 z5
+             * x6 y6 z6
+             * ( . . . )
+             * }
+             */
+
+            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Mesh mesh = new Mesh(transformation);
+
+            for (int i = 3; i < sectionLines.Count - 1; i += 4)
+            {
+                Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[i]));
+
+                List<Vector3> vertices = new List<Vector3>();
+
+                for (int j = 1; j <= 3; j++)
+                {
+                    string[] coordinates = sectionLines[i + j].Split(' ');
+
+                    Vector3 vertex = new Vector3(
+                        (float) Convert.ToDouble(coordinates[0]),
+                        (float) Convert.ToDouble(coordinates[1]),
+                        (float) Convert.ToDouble(coordinates[2])
+                        );
+
+                    vertices.Add(vertex);
+                }
+
+                Triangle triangle = new Triangle(vertices[0], vertices[1], vertices[2], material);
+                mesh.AddTriangle(triangle);
+            }
+
+            this.scene.AddObject(mesh);
         }
 
         private void ProcessBoxSection(List<string> sectionLines)
         {
-            /* The SectionLines Format (All lines are optional):
+            /* The SectionLines Format:
              * Box
              * {
              * Transformation (index)
@@ -280,7 +322,7 @@ namespace RayTracingApp
 
         private void ProcessSphereSection(List<string> sectionLines)
         {
-            /* The SectionLines Format (All lines are optional):
+            /* The SectionLines Format:
              * Sphere
              * {
              * Transformation (index)
