@@ -54,7 +54,7 @@ namespace RayTracingApp
             get { return tmin; }
         }
 
-        public Hit(float t, Color3 color, bool found, Material material, Vector3 point, Vector3 normal, float tmin) : this(t, color)
+        public Hit(float t, Color3 color, bool found, Material material, Vector3 point, Vector3 normal, float tmin)
         {
             this.t = t;
             this.color = color;

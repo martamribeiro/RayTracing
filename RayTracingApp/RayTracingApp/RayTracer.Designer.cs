@@ -94,6 +94,7 @@
             this.sceneContainer.Name = "sceneContainer";
             this.sceneContainer.Size = new System.Drawing.Size(512, 459);
             this.sceneContainer.TabIndex = 0;
+            this.sceneContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.sceneContainer_Paint);
             // 
             // progressBar
             // 
@@ -241,6 +242,7 @@
             this.startButton.TabIndex = 8;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // groupCamera
             // 

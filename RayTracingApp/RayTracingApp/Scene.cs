@@ -14,7 +14,33 @@ namespace RayTracingApp
         private List<Light> lights = new List<Light>();
         private Image image = null;
         private Camera camera = null;
-        
+
+        //read only
+        public List<Material> Materials
+        {
+            get { return materials; }
+        }
+        public List<Transformation> Transformations
+        {
+            get { return transformations; }
+        }
+        public List<Object3D> Objects
+        {
+            get { return objects; }
+        }
+        public List<Light> Lights
+        {
+            get { return lights; }
+        }
+        public Image Image
+        {
+            get { return image; }
+        }
+        public Camera Camera
+        {
+            get { return camera; }
+        }
+
         // Constructor
         public Scene() {}
 

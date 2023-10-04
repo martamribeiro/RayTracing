@@ -33,5 +33,14 @@ namespace RayTracingApp
             this.colG = colG;
             this.colB = colB;
         }
+
+        public void CheckRange()
+        {
+            // limit R, G and B in the interval [0.0, 1.0]
+            //become 0 if less than 0 and become 1 if more than 1
+            colR = Math.Max(0.0, Math.Min(1.0, colR));
+            colG = Math.Max(0.0, Math.Min(1.0, colG));
+            colB = Math.Max(0.0, Math.Min(1.0, colB));
+        }
     }
 }

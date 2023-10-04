@@ -339,9 +339,73 @@ namespace RayTracingApp
             this.scene.AddObject(sphere);
         }
 
+        private Color3 TraceRay(Ray ray, int rec)
+        {
+            //return a fixed color for testing
+            return new Color3(0.4, 0.5, 0.6);
+        }
+
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            sceneContainer.Invalidate();
+        }
+
+        private void sceneContainer_Paint(object sender, PaintEventArgs e)
+        {
+            if (this.scene.Camera != null)
+            {
+
+                //object Graphics to draw on the panel
+                Graphics g = e.Graphics;
+
+                //raytracer
+                double distance = this.scene.Camera.Distance;
+                Vector3 origin = new Vector3(0, 0, (float)distance);
+
+                double fieldOfView = this.scene.Camera.Fov * Math.PI / 180.0;
+                double height = 2.0 * distance * Math.Tan(fieldOfView / 2.0);
+                int Vres = this.scene.Image.ResY;
+                int Hres = this.scene.Image.ResX;
+                double width = height * Hres / Vres;
+                double s = height / Vres;
+
+                //Hres -> horizontal resolution Vres -> vertical resolution
+                for (int j = 0; j < Vres; j++)
+                {
+                    for (int i = 0; i < Hres; i++)
+                    {
+                        //P.x, P.y and P.z for the center of the pixel[i][j]
+                        double P_x = (i + 0.5) * s - width / 2.0;
+                        double P_y = -(j + 0.5) * s + height / 2.0;
+                        double P_z = 0.0; // the projection plane is plane z = 0.0
+                        //direction vector
+                        Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
+                        //normalize the direction vector
+                        direction.Normalize();
+                        //construct the ray
+                        Ray ray = new Ray(origin, direction);
+                        //max level of recursivity
+                        int rec = 1;
+                        //call traceRay() function
+                        Color3 color = TraceRay(ray, rec);
+                        //check range R G B need to be between 0 and 1
+                        color.CheckRange();
+                        //convert color format
+                        int red = (int)(255.0 * color.ColR);
+                        int green = (int)(255.0 * color.ColG);
+                        int blue = (int)(255.0 * color.ColB);
+                        Color pixelColor = Color.FromArgb(red, green, blue);
+                        SolidBrush pixelBrush = new SolidBrush(pixelColor);
+                        //draw a 1x1 pixel on panel
+                        g.FillRectangle(pixelBrush, i, j, 1, 1);
+                    }
+                }
+            }
         }
     }
 }
