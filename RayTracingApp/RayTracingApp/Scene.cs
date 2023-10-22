@@ -6,43 +6,39 @@ using System.Threading.Tasks;
 
 namespace RayTracingApp
 {
-    internal class Scene
+    internal sealed class Scene
     {
-        private List<Material> materials = new List<Material>();
-        private List<Transformation> transformations = new List<Transformation>();
-        private List<Object3D> objects = new List<Object3D>();
-        private List<Light> lights = new List<Light>();
-        private Image image = null;
-        private Camera camera = null;
+        private static readonly Lazy<Scene> instance = new Lazy<Scene>(() => new Scene());
+
+        public static Scene Instance { get { return instance.Value; } }
+
+        private Scene() 
+        {
+            this.materials = new List<Material>();
+            this.transformations = new List<Transformation>();
+            this.objects = new List<Object3D>();
+            this.lights = new List<Light>();
+        }
+
+        private List<Material> materials;
+        private List<Transformation> transformations;
+        private List<Object3D> objects;
+        private List<Light> lights;
+        private Image? image;
+        private Camera? camera;
 
         //read only
-        public List<Material> Materials
-        {
-            get { return materials; }
-        }
-        public List<Transformation> Transformations
-        {
-            get { return transformations; }
-        }
-        public List<Object3D> Objects
-        {
-            get { return objects; }
-        }
-        public List<Light> Lights
-        {
-            get { return lights; }
-        }
-        public Image Image
-        {
-            get { return image; }
-        }
-        public Camera Camera
-        {
-            get { return camera; }
-        }
+        public List<Material> Materials { get { return materials; } }
 
-        // Constructor
-        public Scene() {}
+        public List<Transformation> Transformations { get { return transformations; } }
+
+        public List<Object3D> Objects { get { return objects; } }
+
+        public List<Light> Lights { get { return lights; } }
+
+        public Image? Image { get { return image; } }
+
+        public Camera? Camera { get { return camera; } }
 
         public void AddCamera(Camera camera) { this.camera = camera; }
 

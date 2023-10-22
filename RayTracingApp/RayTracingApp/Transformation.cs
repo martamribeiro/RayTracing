@@ -40,7 +40,7 @@ namespace RayTracingApp
         }
 
         // Creates and Returns a new Transformation by applying the given Translation to the current TransformationMatrix
-        public Transformation? Translate(double x, double y, double z)
+        public Transformation Translate(double x, double y, double z)
         {
             double[,] translateMatrix =
             {
@@ -53,13 +53,13 @@ namespace RayTracingApp
             double[,]? resultMatrix = MultiplyMatrix(translateMatrix, this.transformationMatrix);
 
             if (resultMatrix == null)
-                return null;
+                return this;
 
             return new Transformation(resultMatrix);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the X axis to the current TransformationMatrix
-        public Transformation? RotateX(double angle)
+        public Transformation RotateX(double angle)
         {
             angle *= Math.PI / 180.0;
 
@@ -74,13 +74,13 @@ namespace RayTracingApp
             double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
 
             if (resultMatrix == null)
-                return null;
+                return this;
 
             return new Transformation(resultMatrix);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the Y axis to the current TransformationMatrix
-        public Transformation? RotateY(double angle)
+        public Transformation RotateY(double angle)
         {
             angle *= Math.PI / 180.0;
 
@@ -95,13 +95,13 @@ namespace RayTracingApp
             double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
 
             if (resultMatrix == null)
-                return null;
+                return this;
 
             return new Transformation(resultMatrix);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the Z axis to the current TransformationMatrix
-        public Transformation? RotateZ(double angle)
+        public Transformation RotateZ(double angle)
         {
             angle *= Math.PI / 180.0;
 
@@ -116,13 +116,13 @@ namespace RayTracingApp
             double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
 
             if (resultMatrix == null)
-                return null;
+                return this;
 
             return new Transformation(resultMatrix);
         }
 
         // Creates and Returns a new Transformation by applying the given Scale to the current TransformationMatrix
-        public Transformation? Scale(double x, double y, double z)
+        public Transformation Scale(double x, double y, double z)
         {
             double[,] scaleMatrix =
             {
@@ -135,7 +135,7 @@ namespace RayTracingApp
             double[,]? resultMatrix = MultiplyMatrix(scaleMatrix, this.transformationMatrix);
 
             if (resultMatrix == null)
-                return null;
+                return this;
 
             return new Transformation(resultMatrix);
         }

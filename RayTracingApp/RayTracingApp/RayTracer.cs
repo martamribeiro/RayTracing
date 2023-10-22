@@ -5,11 +5,8 @@ namespace RayTracingApp
 {
     public partial class RayTracer : Form
     {
-        private Scene scene;
-
         public RayTracer()
         {
-            this.scene = new Scene();
             InitializeComponent();
         }
 
@@ -132,7 +129,7 @@ namespace RayTracingApp
             // Construct the Image using the Color and by converting the resolution strings to Int
             Image image = new Image(Convert.ToInt32(resolutionStrings[0]), Convert.ToInt32(resolutionStrings[1]), color);
 
-            this.scene.AddImage(image);
+            RayTracingApp.Scene.Instance.AddImage(image);
         }
 
         private void ProcessTransformationSection(List<string> sectionLines)
@@ -179,7 +176,7 @@ namespace RayTracingApp
                 }
             }
 
-            this.scene.AddTransformation(transformation);
+            RayTracingApp.Scene.Instance.AddTransformation(transformation);
         }
 
         private void ProcessMaterialSection(List<string> sectionLines)
@@ -209,7 +206,7 @@ namespace RayTracingApp
                 (float)Convert.ToDouble(coefficientsStrings[4])
                 );
 
-            this.scene.AddMaterial(material);
+            RayTracingApp.Scene.Instance.AddMaterial(material);
         }
 
         private void ProcessCameraSection(List<string> sectionLines)
@@ -223,11 +220,11 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
             Camera camera = new Camera(transformation, Convert.ToDouble(sectionLines[3]), Convert.ToDouble(sectionLines[4]));
 
-            this.scene.AddCamera(camera);
+            RayTracingApp.Scene.Instance.AddCamera(camera);
         }
 
         private void ProcessLightSection(List<string> sectionLines)
@@ -241,7 +238,7 @@ namespace RayTracingApp
              */
 
             // Get the Transformation index and the corresponding Transformation (stored in the scene)
-            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
             // Get the color strings by spliting the corresponding line
             string[] colorStrings = sectionLines[3].Split(' ');
@@ -251,7 +248,7 @@ namespace RayTracingApp
 
             Light light = new Light(transformation, color);
 
-            this.scene.AddLight(light);
+            RayTracingApp.Scene.Instance.AddLight(light);
         }
 
         private void ProcessTrianglesSection(List<string> sectionLines)
@@ -272,12 +269,12 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
             Mesh mesh = new Mesh(transformation);
 
             for (int i = 3; i < sectionLines.Count - 1; i += 4)
             {
-                Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[i]));
+                Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[i]));
 
                 List<Vector3> vertices = new List<Vector3>();
 
@@ -298,7 +295,7 @@ namespace RayTracingApp
                 mesh.AddTriangle(triangle);
             }
 
-            this.scene.AddObject(mesh);
+            RayTracingApp.Scene.Instance.AddObject(mesh);
         }
 
         private void ProcessBoxSection(List<string> sectionLines)
@@ -311,13 +308,13 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
-            Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+            Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
 
             Box box = new Box(material, transformation);
 
-            this.scene.AddObject(box);
+            RayTracingApp.Scene.Instance.AddObject(box);
         }
 
         private void ProcessSphereSection(List<string> sectionLines)
@@ -330,13 +327,13 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = this.scene.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
-            Material material = this.scene.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+            Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
 
             Sphere sphere = new Sphere(material, transformation);
 
-            this.scene.AddObject(sphere);
+            RayTracingApp.Scene.Instance.AddObject(sphere);
         }
 
         private Color3 TraceRay(Ray ray, int rec)
@@ -357,20 +354,24 @@ namespace RayTracingApp
 
         private void sceneContainer_Paint(object sender, PaintEventArgs e)
         {
-            if (this.scene.Camera != null)
+            if (RayTracingApp.Scene.Instance.Camera != null)
             {
 
                 //object Graphics to draw on the panel
                 Graphics g = e.Graphics;
 
                 //raytracer
-                double distance = this.scene.Camera.Distance;
+                double distance = RayTracingApp.Scene.Instance.Camera.Distance;
                 Vector3 origin = new Vector3(0, 0, (float)distance);
 
-                double fieldOfView = this.scene.Camera.Fov * Math.PI / 180.0;
+                double fieldOfView = RayTracingApp.Scene.Instance.Camera.Fov * Math.PI / 180.0;
                 double height = 2.0 * distance * Math.Tan(fieldOfView / 2.0);
-                int Vres = this.scene.Image.ResY;
-                int Hres = this.scene.Image.ResX;
+
+                if (RayTracingApp.Scene.Instance.Image == null)
+                    return;
+
+                int Vres = RayTracingApp.Scene.Instance.Image.ResY;
+                int Hres = RayTracingApp.Scene.Instance.Image.ResX;
                 double width = height * Hres / Vres;
                 double s = height / Vres;
 
