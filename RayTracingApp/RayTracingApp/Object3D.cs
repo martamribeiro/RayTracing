@@ -8,6 +8,6 @@ namespace RayTracingApp
 {
     internal abstract class Object3D
     {
-        public abstract bool Intersect(Ray ray, Hit hit, float tmin);
+        public abstract bool Intersect(Ray ray, out Hit hit);
     }
 }

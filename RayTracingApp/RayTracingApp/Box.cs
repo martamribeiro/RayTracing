@@ -34,8 +34,9 @@ namespace RayTracingApp
 
         // TODO: Third Stage of the assignment 
         // Returns True if the Ray intersects with the Box
-        public override bool Intersect(Ray ray, Hit hit, float tmin)
+        public override bool Intersect(Ray ray, out Hit hit)
         {
+            hit = new Hit();
             return false;
         }
     }

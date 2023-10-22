@@ -338,8 +338,15 @@ namespace RayTracingApp
 
         private Color3 TraceRay(Ray ray, int rec)
         {
-            //return a fixed color for testing
-            return new Color3(0.4, 0.5, 0.6);
+            Hit hit = new Hit();
+
+            foreach (Object3D currObject in RayTracingApp.Scene.Instance.Objects)
+                currObject.Intersect(ray, out hit);
+
+            if (hit.Found)
+                return hit.Material.Color;
+
+            return RayTracingApp.Scene.Instance.Image!.Color;
         }
 
         private void exitButton_Click(object sender, EventArgs e)

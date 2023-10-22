@@ -54,6 +54,12 @@ namespace RayTracingApp
             get { return tmin; }
         }
 
+        public Hit()
+        {
+            this.found = false;
+            this.tmin = float.MaxValue;
+        }
+
         public Hit(float t, Color3 color, bool found, Material material, Vector3 point, Vector3 normal, float tmin)
         {
             this.t = t;
