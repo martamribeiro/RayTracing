@@ -341,7 +341,7 @@ namespace RayTracingApp
             Hit hit = new Hit();
 
             foreach (Object3D currObject in RayTracingApp.Scene.Instance.Objects)
-                currObject.Intersect(ray, out hit);
+                currObject.Intersect(ray, ref hit);
 
             if (hit.Found)
                 return hit.Material.Color;
@@ -394,9 +394,9 @@ namespace RayTracingApp
                         //direction vector
                         Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
                         //normalize the direction vector
-                        direction.Normalize();
+                        direction = direction.Normalize();
                         //construct the ray
-                        Ray ray = new Ray(origin, direction);
+                        Ray ray = new Ray(direction, origin);
                         //max level of recursivity
                         int rec = 1;
                         //call traceRay() function
@@ -411,6 +411,8 @@ namespace RayTracingApp
                         SolidBrush pixelBrush = new SolidBrush(pixelColor);
                         //draw a 1x1 pixel on panel
                         g.FillRectangle(pixelBrush, i, j, 1, 1);
+
+                        
                     }
                 }
             }

@@ -42,9 +42,8 @@ namespace RayTracingApp
 
         // TODO: Third Stage of the assignment (will probably be using the Triangles' Intersect and check one by one?)
         // Returns True if the Ray intersects with the Mesh 
-        public override bool Intersect(Ray ray, out Hit hit) 
+        public override bool Intersect(Ray ray, ref Hit hit) 
         {
-            hit = new Hit();
             return false;
         }
     }
