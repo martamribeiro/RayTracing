@@ -38,7 +38,7 @@ namespace RayTracingApp
             bounds[1] = vmax;
         }
 
-        // Returns True if the Ray intersects with the Box
+        // Returns True if the Ray intersects with the AABB Box
         public override bool Intersect(Ray ray, ref Hit hit)
         {
             float tnear, tfar;
@@ -107,9 +107,9 @@ namespace RayTracingApp
             return true;
         }
 
+        // Calculates the normal on a given point
         public Vector3 CalculateNormal(Vector3 point)
         {
-
             Vector3 center = (this.bounds[0] + this.bounds[1]) / 2.0f;
             Vector3 size = (this.bounds[0] - this.bounds[1]) / 2.0f;
             Vector3 offset = point - center;
@@ -131,10 +131,11 @@ namespace RayTracingApp
                 normal = new Vector3(0, 0, Math.Sign(point.Z - center.Z));
             }
 
-            return normal;
+            return normal.Normalize();
         }
 
-    private void swap(ref float t0, ref float t1)
+        // Swaps the two given values (Utils function)
+        private void swap(ref float t0, ref float t1)
         {
             float tmp = t0;
             t0 = t1;
