@@ -31,7 +31,7 @@ namespace RayTracingApp
             this.verticeC = vertC;
             this.material = material;
 
-            Transformation? fullTrans = transformation * Scene.Instance.Camera!.Transformation;
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
 
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();

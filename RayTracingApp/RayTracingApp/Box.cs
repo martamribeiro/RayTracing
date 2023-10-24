@@ -14,6 +14,8 @@ namespace RayTracingApp
 
         // The Box's Transformation 
         private Transformation transformation;
+        private Transformation inverseTransformation;
+        private Transformation invTransfTransposed;
 
         private Vector3[] bounds = new Vector3[2];
 
@@ -29,7 +31,12 @@ namespace RayTracingApp
         public Box(Material material, Transformation transformation)
         {
             this.material = material;
-            this.transformation = transformation;
+
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
+
+            this.transformation = (fullTrans != null) ? fullTrans : transformation;
+            this.inverseTransformation = this.transformation.Inverse();
+            this.invTransfTransposed = this.inverseTransformation.Transpose();
 
             Vector3 vmin = new Vector3(-0.5f, -0.5f, -0.5f);
             Vector3 vmax = new Vector3(0.5f, 0.5f, 0.5f);
@@ -41,15 +48,27 @@ namespace RayTracingApp
         // Returns True if the Ray intersects with the AABB Box
         public override bool Intersect(Ray ray, ref Hit hit)
         {
+            // Global Ray to Local
+            Vector3 direction = ray.Direction;
+            Vector4 rayHomDir = Vector4.CartesianToHomogeneous(direction, 0.0f);
+            Vector4 rayLocalDirHom = inverseTransformation.ApplyTransformation(rayHomDir);
+            Vector3 rayLocalDir = Vector4.HomogeneousToCartesian(rayLocalDirHom);
+            rayLocalDir = rayLocalDir.Normalize();
+
+            Vector3 origin = ray.Origin;
+            Vector4 rayHomOrig = Vector4.CartesianToHomogeneous(origin, 1.0f);
+            Vector4 rayLocalOrigHom = inverseTransformation.ApplyTransformation(rayHomOrig);
+            Vector3 rayLocalOrig = Vector4.HomogeneousToCartesian(rayLocalOrigHom);
+
             float tnear, tfar;
             float t1, t2;
 
             // Calculate intersection for X axis
-            if (ray.Direction.X == 0 && (ray.Origin.X < bounds[0].X || ray.Origin.X > bounds[0].X))
+            if (rayLocalDir.X == 0 && (rayLocalOrig.X < bounds[0].X || rayLocalOrig.X > bounds[0].X))
                 return false;
 
-            tnear = (bounds[0].X - ray.Origin.X) / ray.Direction.X;
-            tfar = (bounds[1].X - ray.Origin.X) / ray.Direction.X;
+            tnear = (bounds[0].X - rayLocalOrig.X) / rayLocalDir.X;
+            tfar = (bounds[1].X - rayLocalOrig.X) / rayLocalDir.X;
 
             if (tnear > tfar)
                 swap(ref tnear, ref tfar);
@@ -58,11 +77,11 @@ namespace RayTracingApp
                 return false;
 
             // Calculate intersection for Y axis
-            if (ray.Direction.Y == 0 && (ray.Origin.Y < bounds[0].Y || ray.Origin.Y > bounds[0].Y))
+            if (rayLocalDir.Y == 0 && (rayLocalOrig.Y < bounds[0].Y || rayLocalOrig.Y > bounds[0].Y))
                 return false;
 
-            t1 = (bounds[0].Y - ray.Origin.Y) / ray.Direction.Y;
-            t2 = (bounds[1].Y - ray.Origin.Y) / ray.Direction.Y;
+            t1 = (bounds[0].Y - rayLocalOrig.Y) / rayLocalDir.Y;
+            t2 = (bounds[1].Y - rayLocalOrig.Y) / rayLocalDir.Y;
 
             if (t1 > t2)
                 swap(ref t1, ref t2);
@@ -77,11 +96,11 @@ namespace RayTracingApp
                 return false;
 
             // Calculate intersection for Z axis
-            if (ray.Direction.Z == 0 && (ray.Origin.Z < bounds[0].Z || ray.Origin.Z > bounds[0].Z))
+            if (rayLocalDir.Z == 0 && (rayLocalOrig.Z < bounds[0].Z || rayLocalOrig.Z > bounds[0].Z))
                 return false;
 
-            t1 = (bounds[0].Z - ray.Origin.Z) / ray.Direction.Z;
-            t2 = (bounds[1].Z - ray.Origin.Z) / ray.Direction.Z;
+            t1 = (bounds[0].Z - rayLocalOrig.Z) / rayLocalDir.Z;
+            t2 = (bounds[1].Z - rayLocalOrig.Z) / rayLocalDir.Z;
 
             if (t1 > t2)
                 swap(ref t1, ref t2);
@@ -95,13 +114,19 @@ namespace RayTracingApp
             if (tnear > tfar || tfar < 0)
                 return false;
 
+            Vector3 p = rayLocalOrig + rayLocalDir * tnear;
+            Vector4 pHom = Vector4.CartesianToHomogeneous(p, 1.0f);
+            Vector4 pHomGlobal = transformation.ApplyTransformation(pHom);
+            Vector3 pGlobal = Vector4.HomogeneousToCartesian(pHomGlobal);
+
+            float tGlobal = (pGlobal - ray.Origin).Dot(ray.Direction);
+
             // Update Hit if this is the closest intersection
-            if (tnear > 1.0E-6 && tnear < hit.Tmin)
+            if (tGlobal > 1.0E-6 && tGlobal < hit.Tmin)
             {
-                Vector3 p = ray.Origin + ray.Direction * tnear;
                 Vector3 norm = CalculateNormal(p);
 
-                hit = new Hit(tnear, this.Material.Color, true, this.material, p, norm, tnear);
+                hit = new Hit(tGlobal, this.Material.Color, true, this.material, p, norm, tGlobal);
             }
 
             return true;
