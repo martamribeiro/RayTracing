@@ -31,8 +31,8 @@ namespace RayTracingApp
             this.material = material;
             this.transformation = transformation;
 
-            Vector3 vmin = new Vector3(-1, -1, -1);
-            Vector3 vmax = new Vector3(1, 1, 1);
+            Vector3 vmin = new Vector3(-0.5f, -0.5f, -0.5f);
+            Vector3 vmax = new Vector3(0.5f, 0.5f, 0.5f);
 
             bounds[0] = vmin;
             bounds[1] = vmax;
@@ -111,7 +111,6 @@ namespace RayTracingApp
         public Vector3 CalculateNormal(Vector3 point)
         {
             Vector3 center = (this.bounds[0] + this.bounds[1]) / 2.0f;
-            Vector3 size = (this.bounds[0] - this.bounds[1]) / 2.0f;
             Vector3 offset = point - center;
 
             offset = new Vector3(Math.Abs(offset.X), Math.Abs(offset.Y), Math.Abs(offset.Z));

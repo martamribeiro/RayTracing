@@ -42,7 +42,6 @@ namespace RayTracingApp
             this.radious = 1.0f;
         }
 
-        // TODO: Third Stage of the assignment 
         // Returns True if the Ray intersects with the Box
         public override bool Intersect(Ray ray, ref Hit hit)
         {

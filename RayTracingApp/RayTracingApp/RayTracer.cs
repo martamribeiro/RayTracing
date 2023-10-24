@@ -18,7 +18,7 @@ namespace RayTracingApp
             openFile.Title = "Browse Text Files Only";
             openFile.Filter = "Text Files Only (*.txt) | *.txt";
             openFile.DefaultExt = "txt";
-            if(openFile.ShowDialog() == DialogResult.OK)
+            if (openFile.ShowDialog() == DialogResult.OK)
             {
                 // Used to recognize the "." as the decimal separator
                 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -52,10 +52,12 @@ namespace RayTracingApp
                         {
                             //process section
                             ProcessSection(currentSectionLines);
-                        } else {
+                        }
+                        else
+                        {
                             sections.Add(currentSectionLines);
                         }
-                        
+
                         //create a new list and go to next section
                         currentSectionLines = new List<string>();
                     }
@@ -63,7 +65,8 @@ namespace RayTracingApp
 
                 foreach (List<string> section in sections)
                 {
-                    if (section.Count() > 0) {
+                    if (section.Count() > 0)
+                    {
                         ProcessSection(section);
                     }
                 }
@@ -129,7 +132,7 @@ namespace RayTracingApp
             // Construct the Image using the Color and by converting the resolution strings to Int
             Image image = new Image(Convert.ToInt32(resolutionStrings[0]), Convert.ToInt32(resolutionStrings[1]), color);
 
-            RayTracingApp.Scene.Instance.AddImage(image);
+            Scene.Instance.AddImage(image);
         }
 
         private void ProcessTransformationSection(List<string> sectionLines)
@@ -176,7 +179,7 @@ namespace RayTracingApp
                 }
             }
 
-            RayTracingApp.Scene.Instance.AddTransformation(transformation);
+            Scene.Instance.AddTransformation(transformation);
         }
 
         private void ProcessMaterialSection(List<string> sectionLines)
@@ -206,7 +209,7 @@ namespace RayTracingApp
                 (float)Convert.ToDouble(coefficientsStrings[4])
                 );
 
-            RayTracingApp.Scene.Instance.AddMaterial(material);
+            Scene.Instance.AddMaterial(material);
         }
 
         private void ProcessCameraSection(List<string> sectionLines)
@@ -220,11 +223,11 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
             Camera camera = new Camera(transformation, Convert.ToDouble(sectionLines[3]), Convert.ToDouble(sectionLines[4]));
 
-            RayTracingApp.Scene.Instance.AddCamera(camera);
+            Scene.Instance.AddCamera(camera);
         }
 
         private void ProcessLightSection(List<string> sectionLines)
@@ -238,7 +241,7 @@ namespace RayTracingApp
              */
 
             // Get the Transformation index and the corresponding Transformation (stored in the scene)
-            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
             // Get the color strings by spliting the corresponding line
             string[] colorStrings = sectionLines[3].Split(' ');
@@ -248,7 +251,7 @@ namespace RayTracingApp
 
             Light light = new Light(transformation, color);
 
-            RayTracingApp.Scene.Instance.AddLight(light);
+            Scene.Instance.AddLight(light);
         }
 
         private void ProcessTrianglesSection(List<string> sectionLines)
@@ -269,12 +272,12 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
             Mesh mesh = new Mesh(transformation);
 
             for (int i = 3; i < sectionLines.Count - 1; i += 4)
             {
-                Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[i]));
+                Material material = Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[i]));
 
                 List<Vector3> vertices = new List<Vector3>();
 
@@ -283,9 +286,9 @@ namespace RayTracingApp
                     string[] coordinates = sectionLines[i + j].Split(' ');
 
                     Vector3 vertex = new Vector3(
-                        (float) Convert.ToDouble(coordinates[0]),
-                        (float) Convert.ToDouble(coordinates[1]),
-                        (float) Convert.ToDouble(coordinates[2])
+                        (float)Convert.ToDouble(coordinates[0]),
+                        (float)Convert.ToDouble(coordinates[1]),
+                        (float)Convert.ToDouble(coordinates[2])
                         );
 
                     vertices.Add(vertex);
@@ -295,7 +298,7 @@ namespace RayTracingApp
                 mesh.AddTriangle(triangle);
             }
 
-            RayTracingApp.Scene.Instance.AddObject(mesh);
+            Scene.Instance.AddObject(mesh);
         }
 
         private void ProcessBoxSection(List<string> sectionLines)
@@ -308,13 +311,13 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
-            Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+            Material material = Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
 
             Box box = new Box(material, transformation);
 
-            RayTracingApp.Scene.Instance.AddObject(box);
+            Scene.Instance.AddObject(box);
         }
 
         private void ProcessSphereSection(List<string> sectionLines)
@@ -327,13 +330,13 @@ namespace RayTracingApp
              * }
              */
 
-            Transformation transformation = RayTracingApp.Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
+            Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
 
-            Material material = RayTracingApp.Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
+            Material material = Scene.Instance.GetMaterialByIndex(Convert.ToInt32(sectionLines[3]));
 
             Sphere sphere = new Sphere(material, transformation);
 
-            RayTracingApp.Scene.Instance.AddObject(sphere);
+            Scene.Instance.AddObject(sphere);
         }
 
         private Color3 TraceRay(Ray ray, int rec)
@@ -346,7 +349,7 @@ namespace RayTracingApp
             if (hit.Found)
                 return hit.Material.Color;
 
-            return RayTracingApp.Scene.Instance.Image!.Color;
+            return Scene.Instance.Image!.Color;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -361,61 +364,69 @@ namespace RayTracingApp
 
         private void sceneContainer_Paint(object sender, PaintEventArgs e)
         {
-            if (RayTracingApp.Scene.Instance.Camera != null)
+            if (Scene.Instance.Camera == null)
+                return;
+
+            //object Graphics to draw on the panel
+            Graphics g = e.Graphics;
+
+            //raytracer
+            double distance = Scene.Instance.Camera.Distance;
+            Vector3 origin = new Vector3(0, 0, (float)distance);
+
+            double fieldOfView = Scene.Instance.Camera.Fov * Math.PI / 180.0;
+            double height = 2.0 * distance * Math.Tan(fieldOfView / 2.0);
+
+            if (Scene.Instance.Image == null)
+                return;
+
+            int Vres = Scene.Instance.Image.ResY;
+            int Hres = Scene.Instance.Image.ResX;
+            double width = height * Hres / Vres;
+            double s = height / Vres;
+
+            //Hres -> horizontal resolution Vres -> vertical resolution
+            for (int j = 0; j < Vres; j++)
             {
-
-                //object Graphics to draw on the panel
-                Graphics g = e.Graphics;
-
-                //raytracer
-                double distance = RayTracingApp.Scene.Instance.Camera.Distance;
-                Vector3 origin = new Vector3(0, 0, (float)distance);
-
-                double fieldOfView = RayTracingApp.Scene.Instance.Camera.Fov * Math.PI / 180.0;
-                double height = 2.0 * distance * Math.Tan(fieldOfView / 2.0);
-
-                if (RayTracingApp.Scene.Instance.Image == null)
-                    return;
-
-                int Vres = RayTracingApp.Scene.Instance.Image.ResY;
-                int Hres = RayTracingApp.Scene.Instance.Image.ResX;
-                double width = height * Hres / Vres;
-                double s = height / Vres;
-
-                //Hres -> horizontal resolution Vres -> vertical resolution
-                for (int j = 0; j < Vres; j++)
+                for (int i = 0; i < Hres; i++)
                 {
-                    for (int i = 0; i < Hres; i++)
-                    {
-                        //P.x, P.y and P.z for the center of the pixel[i][j]
-                        double P_x = (i + 0.5) * s - width / 2.0;
-                        double P_y = -(j + 0.5) * s + height / 2.0;
-                        double P_z = 0.0; // the projection plane is plane z = 0.0
-                        //direction vector
-                        Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
-                        //normalize the direction vector
-                        direction = direction.Normalize();
-                        //construct the ray
-                        Ray ray = new Ray(direction, origin);
-                        //max level of recursivity
-                        int rec = 1;
-                        //call traceRay() function
-                        Color3 color = TraceRay(ray, rec);
-                        //check range R G B need to be between 0 and 1
-                        color.CheckRange();
-                        //convert color format
-                        int red = (int)(255.0 * color.ColR);
-                        int green = (int)(255.0 * color.ColG);
-                        int blue = (int)(255.0 * color.ColB);
-                        Color pixelColor = Color.FromArgb(red, green, blue);
-                        SolidBrush pixelBrush = new SolidBrush(pixelColor);
-                        //draw a 1x1 pixel on panel
-                        g.FillRectangle(pixelBrush, i, j, 1, 1);
-
-                        
-                    }
+                    //P.x, P.y and P.z for the center of the pixel[i][j]
+                    double P_x = (i + 0.5) * s - width / 2.0;
+                    double P_y = -(j + 0.5) * s + height / 2.0;
+                    double P_z = 0.0; // the projection plane is plane z = 0.0
+                    //direction vector
+                    Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
+                    //normalize the direction vector
+                    direction = direction.Normalize();
+                    //construct the ray
+                    Ray ray = new Ray(direction, origin);
+                    //max level of recursivity
+                    int rec = 1;
+                    //call traceRay() function
+                    Color3 color = TraceRay(ray, rec);
+                    //check range R G B need to be between 0 and 1
+                    color.CheckRange();
+                    //convert color format
+                    int red = (int)(255.0 * color.ColR);
+                    int green = (int)(255.0 * color.ColG);
+                    int blue = (int)(255.0 * color.ColB);
+                    Color pixelColor = Color.FromArgb(red, green, blue);
+                    SolidBrush pixelBrush = new SolidBrush(pixelColor);
+                    //draw a 1x1 pixel on panel
+                    g.FillRectangle(pixelBrush, i, j, 1, 1);
                 }
+
             }
+        }
+
+        private void labelRayTracer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RayTracer_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
