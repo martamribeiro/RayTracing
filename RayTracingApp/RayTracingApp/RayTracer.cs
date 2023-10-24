@@ -294,7 +294,7 @@ namespace RayTracingApp
                     vertices.Add(vertex);
                 }
 
-                Triangle triangle = new Triangle(vertices[0], vertices[1], vertices[2], material);
+                Triangle triangle = new Triangle(vertices[0], vertices[1], vertices[2], material, transformation);
                 mesh.AddTriangle(triangle);
             }
 

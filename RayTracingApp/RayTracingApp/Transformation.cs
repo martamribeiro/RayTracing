@@ -50,7 +50,7 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0},
             };
 
-            double[,]? resultMatrix = MultiplyMatrix(translateMatrix, this.transformationMatrix);
+            double[,]? resultMatrix = MultiplyMatrix(this.transformationMatrix, translateMatrix);
 
             if (resultMatrix == null)
                 return this;
@@ -61,7 +61,7 @@ namespace RayTracingApp
         // Creates and Returns a new Transformation by applying the given Rotation in the X axis to the current TransformationMatrix
         public Transformation RotateX(double angle)
         {
-            angle *= Math.PI / 180.0;
+            angle *= (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
@@ -71,7 +71,7 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0 }
             };
 
-            double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
+            double[,]? resultMatrix = MultiplyMatrix(this.transformationMatrix, rotationMatrix);
 
             if (resultMatrix == null)
                 return this;
@@ -82,7 +82,7 @@ namespace RayTracingApp
         // Creates and Returns a new Transformation by applying the given Rotation in the Y axis to the current TransformationMatrix
         public Transformation RotateY(double angle)
         {
-            angle *= Math.PI / 180.0;
+            angle *= (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
@@ -92,7 +92,7 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0 }
             };
 
-            double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
+            double[,]? resultMatrix = MultiplyMatrix(this.transformationMatrix, rotationMatrix);
 
             if (resultMatrix == null)
                 return this;
@@ -103,7 +103,7 @@ namespace RayTracingApp
         // Creates and Returns a new Transformation by applying the given Rotation in the Z axis to the current TransformationMatrix
         public Transformation RotateZ(double angle)
         {
-            angle *= Math.PI / 180.0;
+            angle *= (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
@@ -113,7 +113,7 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0 }
             };
 
-            double[,]? resultMatrix = MultiplyMatrix(rotationMatrix, this.transformationMatrix);
+            double[,]? resultMatrix = MultiplyMatrix(this.transformationMatrix, rotationMatrix);
 
             if (resultMatrix == null)
                 return this;
@@ -132,12 +132,28 @@ namespace RayTracingApp
                 { 0.0, 0.0, 0.0, 1.0 },
             };
 
-            double[,]? resultMatrix = MultiplyMatrix(scaleMatrix, this.transformationMatrix);
+            double[,]? resultMatrix = MultiplyMatrix(this.transformationMatrix, scaleMatrix);
 
             if (resultMatrix == null)
                 return this;
 
             return new Transformation(resultMatrix);
+        }
+
+        public Vector4 ApplyTransformation(Vector4 vec)
+        {
+            float[] resultValues = new float[4];
+            float[] vecValues = {vec.X, vec.Y, vec.Z, vec.W};
+
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    resultValues[i] += (float)transformationMatrix[i, j] * vecValues[j];
+
+            for (int i = 0; i < 4; i++)
+                if (Math.Abs(resultValues[i]) < 1.0E-5)
+                    resultValues[i] = 0.0f;
+
+            return new Vector4(resultValues[0], resultValues[1], resultValues[2], resultValues[3]);
         }
 
         // Creates and Returns a new Transformation by transposing the current TransformationMatrix
@@ -146,12 +162,8 @@ namespace RayTracingApp
             double[,] transposedMatrix = new double[4, 4];
 
             for (int i = 0; i < 4; i++)
-            {
                 for (int j = 0; j < 4; j++)
-                {
                     transposedMatrix[j, i] = this.transformationMatrix[i, j];
-                }
-            }
 
             return new Transformation(transposedMatrix);
         }
@@ -162,12 +174,22 @@ namespace RayTracingApp
             return new Transformation(MatrixInverse(this.transformationMatrix));
         }
 
+        public static Transformation? operator *(Transformation t1, Transformation t2)
+        {
+            double[,]? result = MultiplyMatrix(t1.transformationMatrix, t2.transformationMatrix);
+
+            if (result == null)
+                return null;
+
+            return new Transformation(result);
+        }
+
         //
         // TODO: Maybe move all of the following code to a static class? Something like Utils or MatrixUtils?
         //
 
         // Multiplies the two given Matrixes and returns the result. Returns null if the Matrixes can't be multiplied
-        private double[,]? MultiplyMatrix(double[,] matrixA, double[,] matrixB)
+        private static double[,]? MultiplyMatrix(double[,] matrixA, double[,] matrixB)
         {
             int matrixARows = matrixA.GetLength(0);
             int matrixACols = matrixA.GetLength(1);

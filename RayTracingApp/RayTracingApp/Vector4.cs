@@ -48,7 +48,7 @@ namespace RayTracingApp
                 float yCartesian = homogeneous.Y;
                 float zCartesian = homogeneous.Z;
                 return new Vector3(xCartesian, yCartesian, zCartesian);
-            } else if (homogeneous.W == 1.0f) //if point
+            } else //if point
             {
                 float xCartesian = homogeneous.X / homogeneous.W;
                 float yCartesian = homogeneous.Y / homogeneous.W;
