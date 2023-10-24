@@ -40,11 +40,16 @@ namespace RayTracingApp
             this.triangles.Add(triangle);
         }
 
-        // TODO: Third Stage of the assignment (will probably be using the Triangles' Intersect and check one by one?)
         // Returns True if the Ray intersects with the Mesh 
         public override bool Intersect(Ray ray, ref Hit hit) 
         {
-            return false;
+            bool intersected = false;
+            
+            foreach (Triangle triangle in triangles)
+                if (triangle.Intersect(ray, ref hit))
+                    intersected = true;
+
+            return intersected;
         }
     }
 }

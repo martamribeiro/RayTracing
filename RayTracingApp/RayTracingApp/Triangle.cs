@@ -39,11 +39,55 @@ namespace RayTracingApp
             return normal.Normalize();
         }
 
-        // TODO: Third Stage of the assignment 
         // Returns True if the Ray intersects with the Triangle
         public override bool Intersect(Ray ray, ref Hit hit)
         {
-            return false; 
+            // Check if the ray is parallel to the plan
+            if (Math.Abs(normal.Dot(ray.Direction)) < 1.0E-6) 
+                return false;
+
+            // Calculate the point where the ray intersects the triangle's plane
+            Vector3 w = verticeA - ray.Origin;
+            
+            float t = w.Dot(this.normal) / ray.Direction.Dot(this.normal);
+
+            if (t < 0.0f)
+                return false;
+
+            Vector3 intP = ray.Origin + t * ray.Direction;
+
+            // Check if point P is inside or outside the triangle
+            Vector3 c;
+
+            // Edge AB
+            Vector3 edgeAB = verticeB - verticeA;
+            Vector3 vpAB = intP - verticeA;
+            c = edgeAB.Cross(vpAB);
+
+            if (normal.Dot(c) < 0.0f)
+                return false;
+
+            // Edge BC
+            Vector3 edgeBC = verticeC - verticeB;
+            Vector3 vpBC = intP - verticeB;
+            c = edgeBC.Cross(vpBC);
+
+            if (normal.Dot(c) < 0.0f)
+                return false;
+
+            // Edge AC
+            Vector3 edgeAC = verticeA - verticeC;
+            Vector3 vpAC = intP - verticeC;
+            c = edgeAC.Cross(vpAC);
+
+            if (normal.Dot(c) < 0.0f)
+                return false;
+
+            // Update Hit if this is the closest intersection
+            if (t > 1.0E-6 && t < hit.Tmin)
+                hit = new Hit(t, material.Color, true, material, intP, normal, t);
+
+            return true;
         }
     }
 }
