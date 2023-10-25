@@ -11,6 +11,10 @@ namespace RayTracingApp
         // Transformation applied to the Camera
         private Transformation transformation;
 
+        private Transformation inverseTransformation;
+
+        private Transformation invTransfTransposed;
+
         private Color3 intensity;
 
         //Getters
@@ -26,8 +30,13 @@ namespace RayTracingApp
 
         public Light(Transformation transformation, Color3 intensity)
         {
-            this.transformation = transformation;
             this.intensity = intensity;
+
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
+
+            this.transformation = (fullTrans != null) ? fullTrans : transformation;
+            this.inverseTransformation = this.transformation.Inverse();
+            this.invTransfTransposed = this.inverseTransformation.Transpose();
         }
     }
 }

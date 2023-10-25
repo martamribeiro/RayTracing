@@ -49,16 +49,10 @@ namespace RayTracingApp
         public override bool Intersect(Ray ray, ref Hit hit)
         {
             // Global Ray to Local
-            Vector3 direction = ray.Direction;
-            Vector4 rayHomDir = Vector4.CartesianToHomogeneous(direction, 0.0f);
-            Vector4 rayLocalDirHom = inverseTransformation.ApplyTransformation(rayHomDir);
-            Vector3 rayLocalDir = Vector4.HomogeneousToCartesian(rayLocalDirHom);
+            Vector3 rayLocalDir = toLocalVec(ray.Direction);
             rayLocalDir = rayLocalDir.Normalize();
 
-            Vector3 origin = ray.Origin;
-            Vector4 rayHomOrig = Vector4.CartesianToHomogeneous(origin, 1.0f);
-            Vector4 rayLocalOrigHom = inverseTransformation.ApplyTransformation(rayHomOrig);
-            Vector3 rayLocalOrig = Vector4.HomogeneousToCartesian(rayLocalOrigHom);
+            Vector3 rayLocalOrig = toLocalPoint(ray.Origin);
 
             float tnear, tfar;
             float t1, t2;
@@ -115,16 +109,14 @@ namespace RayTracingApp
                 return false;
 
             Vector3 p = rayLocalOrig + rayLocalDir * tnear;
-            Vector4 pHom = Vector4.CartesianToHomogeneous(p, 1.0f);
-            Vector4 pHomGlobal = transformation.ApplyTransformation(pHom);
-            Vector3 pGlobal = Vector4.HomogeneousToCartesian(pHomGlobal);
-
+            Vector3 pGlobal = toGlobalPoint(p);
             float tGlobal = (pGlobal - ray.Origin).Dot(ray.Direction);
 
             // Update Hit if this is the closest intersection
             if (tGlobal > 1.0E-6 && tGlobal < hit.Tmin)
             {
                 Vector3 norm = CalculateNormal(p);
+                norm = toGlobalNorm(norm);
 
                 hit = new Hit(tGlobal, this.Material.Color, true, this.material, p, norm, tGlobal);
             }
@@ -164,6 +156,53 @@ namespace RayTracingApp
             float tmp = t0;
             t0 = t1;
             t1 = tmp;
+        }
+
+        // Converts the given Global Point to the Local Coordinate system of the Object
+        public Vector3 toLocalPoint(Vector3 point)
+        {
+            Vector4 homoPoint = Vector4.CartesianToHomogeneous(point, 1.0f);
+            Vector4 localHomoPoint = inverseTransformation.ApplyTransformation(homoPoint);
+            Vector3 localPoint = Vector4.HomogeneousToCartesian(localHomoPoint);
+
+            return localPoint;
+        }
+
+        // Converts the given Global Vector to the Local Coordinate system of the Object
+        public Vector3 toLocalVec(Vector3 vec)
+        {
+            Vector4 homoVec = Vector4.CartesianToHomogeneous(vec, 0.0f);
+            Vector4 localHomoVec = inverseTransformation.ApplyTransformation(homoVec);
+
+            return Vector4.HomogeneousToCartesian(localHomoVec);
+        }
+
+        // Converts the given Local Point to the Global Coordinate system
+        public Vector3 toGlobalPoint(Vector3 point)
+        {
+            Vector4 homoPoint = Vector4.CartesianToHomogeneous(point, 1.0f);
+            Vector4 globalHomoPoint = transformation.ApplyTransformation(homoPoint);
+
+            return Vector4.HomogeneousToCartesian(globalHomoPoint);
+        }
+
+        // Converts the given Local Vector to the Global Coordinate system
+        public Vector3 toGlobalVec(Vector3 vec)
+        {
+            Vector4 homoVec = Vector4.CartesianToHomogeneous(vec, 0.0f);
+            Vector4 globalHomoVec = transformation.ApplyTransformation(homoVec);
+
+            return Vector4.HomogeneousToCartesian(globalHomoVec);
+        }
+
+        // Converts the given Local Normal to the Global Coordinate System
+        public Vector3 toGlobalNorm(Vector3 norm)
+        {
+            Vector4 normHom = Vector4.CartesianToHomogeneous(norm, 0.0f);
+            Vector4 globalNormHom = invTransfTransposed.ApplyTransformation(normHom);
+            Vector3 globalNorm = Vector4.HomogeneousToCartesian(globalNormHom);
+
+            return globalNorm.Normalize();
         }
     }
 }
