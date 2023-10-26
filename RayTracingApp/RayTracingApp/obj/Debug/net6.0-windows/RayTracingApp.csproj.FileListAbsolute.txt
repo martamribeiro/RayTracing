@@ -15,19 +15,3 @@ C:\Users\marta\Documents\GitHub\RayTracing\RayTracingApp\RayTracingApp\obj\Debug
 C:\Users\marta\Documents\GitHub\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.pdb
 C:\Users\marta\Documents\GitHub\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.genruntimeconfig.cache
 C:\Users\marta\Documents\GitHub\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\ref\RayTracingApp.dll
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.RayTracer.resources
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.csproj.GenerateResource.cache
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.AssemblyInfoInputs.cache
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.AssemblyInfo.cs
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.csproj.CoreCompileInputs.cache
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.dll
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\refint\RayTracingApp.dll
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.pdb
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\bin\Debug\net6.0-windows\RayTracingApp.exe
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\bin\Debug\net6.0-windows\RayTracingApp.deps.json
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\bin\Debug\net6.0-windows\RayTracingApp.runtimeconfig.json
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\bin\Debug\net6.0-windows\RayTracingApp.dll
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\bin\Debug\net6.0-windows\RayTracingApp.pdb
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\RayTracingApp.genruntimeconfig.cache
-C:\Users\crist\Desktop\Uni Stuff\Mestrado\Semestre_1\COSIG\Trabalho1\RayTracing\RayTracingApp\RayTracingApp\obj\Debug\net6.0-windows\ref\RayTracingApp.dll
