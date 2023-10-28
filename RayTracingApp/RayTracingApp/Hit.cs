@@ -52,6 +52,7 @@ namespace RayTracingApp
         public float Tmin
         {
             get { return tmin; }
+            set { tmin = value; }
         }
 
         public Hit()

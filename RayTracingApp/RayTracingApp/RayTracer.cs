@@ -20,6 +20,7 @@ namespace RayTracingApp
             openFile.DefaultExt = "txt";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
+                Scene.Instance.resetScene();
                 // Used to recognize the "." as the decimal separator
                 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
@@ -371,13 +372,13 @@ namespace RayTracingApp
         {
             Hit hit = new Hit();
 
-            foreach (Object3D currObject in RayTracingApp.Scene.Instance.Objects)
+            foreach (Object3D currObject in Scene.Instance.Objects)
                 currObject.Intersect(ray, ref hit);
 
             if (hit.Found)
             {
                 Color3 color = new Color3(0.0, 0.0, 0.0);
-                foreach (Light light in RayTracingApp.Scene.Instance.Lights)
+                foreach (Light light in Scene.Instance.Lights)
                 {
                     //cálculo da componente de luz ambiente
                     color = color + (light.Intensity * hit.Material.Color * hit.Material.AmbientLight);
@@ -385,16 +386,32 @@ namespace RayTracingApp
                     //cálculo da componente de reflexão difusa
 
                     Vector3 l = Vector4.Subtract(light.Transformation.ApplyTransformation(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)), hit.Point);
+                    float tLight = l.Length();
                     l = l.Normalize();
                     double cosTheta = hit.Normal.Dot(l);
             
                     if (cosTheta > 0.0)
                     {
-                        color = color + (light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta);
+                        Ray shadowRay = new Ray(l, hit.Point + 8.0E-6f * hit.Normal);
+                        Hit shadowHit = new Hit();
+
+                        shadowHit.Tmin = tLight;
+
+                        foreach (Object3D currObject in Scene.Instance.Objects) 
+                        {
+                            currObject.Intersect(shadowRay, ref shadowHit);
+
+                            if (shadowHit.Found)
+                                break;
+                        }
+
+
+                        if (!shadowHit.Found)
+                            color = color + (light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta);
                     }
 
                 }
-                return color / RayTracingApp.Scene.Instance.Lights.Count;
+                return color / Scene.Instance.Lights.Count;
                 //return hit.Material.Color;
             }
 

@@ -20,6 +20,16 @@ namespace RayTracingApp
             this.lights = new List<Light>();
         }
 
+        public void resetScene()
+        {
+            this.camera = null;
+            this.lights.Clear();
+            this.materials.Clear();
+            this.transformations.Clear();
+            this.objects.Clear();
+            this.lights.Clear();
+        }
+
         private List<Material> materials;
         private List<Transformation> transformations;
         private List<Object3D> objects;
