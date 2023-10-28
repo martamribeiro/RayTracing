@@ -59,5 +59,12 @@ namespace RayTracingApp
             throw new InvalidOperationException("Cannot convert from homogeneous coordinates with w different from 0 or 1.");
         }
 
+        public static Vector3 Subtract(Vector4 v4, Vector3 v3)
+        {
+            Vector3 v4AsVector3 = Vector4.HomogeneousToCartesian(v4);
+            Vector3 result = v4AsVector3 - v3;
+            return result;
+        }
+
     }
 }

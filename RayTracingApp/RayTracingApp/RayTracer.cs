@@ -351,7 +351,20 @@ namespace RayTracingApp
                 Color3 color = new Color3(0.0, 0.0, 0.0);
                 foreach (Light light in RayTracingApp.Scene.Instance.Lights)
                 {
+                    //cálculo da componente de luz ambiente
                     color = color + (light.Intensity * hit.Material.Color * hit.Material.AmbientLight);
+
+                    //cálculo da componente de reflexão difusa
+
+                    Vector3 l = Vector4.Subtract(light.Transformation.ApplyTransformation(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)), hit.Point);
+                    l = l.Normalize();
+                    double cosTheta = hit.Normal.Dot(l);
+            
+                    if (cosTheta > 0.0)
+                    {
+                        color = color + (light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta);
+                    }
+
                 }
                 return color / RayTracingApp.Scene.Instance.Lights.Count;
                 //return hit.Material.Color;
