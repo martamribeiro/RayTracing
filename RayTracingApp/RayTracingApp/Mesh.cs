@@ -9,10 +9,12 @@ namespace RayTracingApp
     internal class Mesh : Object3D
     {
         // A List of Triangles that make up the Mesh
-        private List<Triangle> triangles = new List<Triangle>();
+        private List<Triangle> triangles;
 
         // The Transformation to be applied to all the Mesh's Triangles
-        private Transformation transformation = new Transformation();
+        private Transformation transformation;
+
+        private Box boundingBox;
 
         // Getters
         public List<Triangle> Triangles { get { return triangles; } }
@@ -20,18 +22,22 @@ namespace RayTracingApp
         public Transformation Transformation { get { return transformation; } }
 
         // Empty Constructor, defaults the Transformation to the Identity Matrix
-        public Mesh() { }
+        public Mesh() : this(new List<Triangle>(), new Transformation()) { }
 
         // Constructor using only the Transformation 
-        public Mesh(Transformation transformation) {
-            this.transformation = transformation;
-        }
+        public Mesh(Transformation transformation) : this(new List<Triangle>(), transformation) {}
 
         // Constructor with both a List of Triangles and the given Transformation
         public Mesh(List<Triangle> triangles, Transformation transformation) 
         {
             this.triangles = triangles;
             this.transformation = transformation;
+
+            Random rnd = new Random();
+
+            Color3 white = new Color3(1f, 1f, 1f);
+            Material boxMat = new Material(white, 1f, 1f, 1f, 1f, 1f);
+            boundingBox = new Box(boxMat, transformation);
         }
 
         // Adds the given Triangle to the Mesh
@@ -43,6 +49,13 @@ namespace RayTracingApp
         // Returns True if the Ray intersects with the Mesh 
         public override bool Intersect(Ray ray, ref Hit hit) 
         {
+            Hit boxHit = new Hit();
+
+            boundingBox.Intersect(ray, ref boxHit);
+
+            if (!boxHit.Found)
+                return false;
+
             bool intersected = false;
             
             foreach (Triangle triangle in triangles)
@@ -50,6 +63,11 @@ namespace RayTracingApp
                     intersected = true;
 
             return intersected;
+        }
+
+        public void updateBoundingBox(Vector3 minBound, Vector3 maxBound)
+        {
+            boundingBox.updateBounds(minBound, maxBound);
         }
     }
 }

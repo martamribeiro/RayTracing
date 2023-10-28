@@ -81,6 +81,21 @@ namespace RayTracingApp
             return new Vector3(x / length, y / length, z / length);
         }
 
+        public Vector3 changeX(float x)
+        {
+            return new Vector3(x, this.y, this.z);
+        }
+
+        public Vector3 changeY(float y)
+        {
+            return new Vector3(this.x, y, this.z);
+        }
+
+        public Vector3 changeZ(float z)
+        {
+            return new Vector3(this.x, this.y, z);
+        }
+
         //scalar product
 
         public float Dot(Vector3 other)

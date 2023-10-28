@@ -274,6 +274,9 @@ namespace RayTracingApp
 
             Transformation transformation = Scene.Instance.GetTransformationByIndex(Convert.ToInt32(sectionLines[2]));
             Mesh mesh = new Mesh(transformation);
+            
+            Vector3 minBound = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            Vector3 maxBound = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
             for (int i = 3; i < sectionLines.Count - 1; i += 4)
             {
@@ -296,8 +299,33 @@ namespace RayTracingApp
 
                 Triangle triangle = new Triangle(vertices[0], vertices[1], vertices[2], material, transformation);
                 mesh.AddTriangle(triangle);
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (minBound.X > vertices[j].X)
+                        minBound = minBound.changeX(vertices[j].X);
+
+                    if (minBound.Y > vertices[j].Y)
+                        minBound = minBound.changeY(vertices[j].Y);
+
+                    if (minBound.Z > vertices[j].Z)
+                        minBound = minBound.changeZ(vertices[j].Z);
+                }
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (maxBound.X < vertices[j].X)
+                        maxBound = maxBound.changeX(vertices[j].X);
+
+                    if (maxBound.Y < vertices[j].Y)
+                        maxBound = maxBound.changeY(vertices[j].Y);
+
+                    if (maxBound.Z < vertices[j].Z)
+                        maxBound = maxBound.changeZ(vertices[j].Z);
+                }
             }
 
+            mesh.updateBoundingBox(minBound, maxBound);
             Scene.Instance.AddObject(mesh);
         }
 

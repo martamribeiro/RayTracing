@@ -204,5 +204,11 @@ namespace RayTracingApp
 
             return globalNorm.Normalize();
         }
+
+        public void updateBounds(Vector3 minBound, Vector3 maxBound)
+        {
+            bounds[0] = minBound;
+            bounds[1] = maxBound;
+        }
     }
 }
