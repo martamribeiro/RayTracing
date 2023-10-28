@@ -347,7 +347,15 @@ namespace RayTracingApp
                 currObject.Intersect(ray, ref hit);
 
             if (hit.Found)
-                return hit.Material.Color;
+            {
+                Color3 color = new Color3(0.0, 0.0, 0.0);
+                foreach (Light light in RayTracingApp.Scene.Instance.Lights)
+                {
+                    color = color + (light.Intensity * hit.Material.Color * hit.Material.AmbientLight);
+                }
+                return color / RayTracingApp.Scene.Instance.Lights.Count;
+                //return hit.Material.Color;
+            }
 
             return Scene.Instance.Image!.Color;
         }
