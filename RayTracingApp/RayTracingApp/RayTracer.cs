@@ -384,7 +384,6 @@ namespace RayTracingApp
                     color = color + (light.Intensity * hit.Material.Color * hit.Material.AmbientLight);
 
                     //cálculo da componente de reflexão difusa
-
                     Vector3 l = Vector4.Subtract(light.Transformation.ApplyTransformation(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)), hit.Point);
                     float tLight = l.Length();
                     l = l.Normalize();
@@ -408,6 +407,25 @@ namespace RayTracingApp
 
                         if (!shadowHit.Found)
                             color = color + (light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta);
+                    }
+
+                    //cálculo da componente de reflexão especular
+                    if (rec > 0)
+                    {
+                        double cosThetaV = -(ray.Direction.Dot(hit.Normal));
+
+                        if(hit.Material.SpecularLight > 0.0)
+                        {
+                            Vector3 r = ray.Direction + Convert.ToSingle(2.0 * cosThetaV) * hit.Normal;
+                            r = r.Normalize();
+                            Ray reflectedRay = new Ray(hit.Point, r);
+
+                            //chamar o raytracer recursivamente
+                            Color3 reflectedColor = TraceRay(reflectedRay, rec-1);
+
+                            color = color + hit.Material.Color * (hit.Material.SpecularLight + (1.0 - hit.Material.SpecularLight) * Math.Pow(1.0 - cosThetaV, 5)) * reflectedColor;
+                        }
+
                     }
 
                 }
@@ -467,7 +485,7 @@ namespace RayTracingApp
                     //construct the ray
                     Ray ray = new Ray(direction, origin);
                     //max level of recursivity
-                    int rec = 1;
+                    int rec = 2;
                     //call traceRay() function
                     Color3 color = TraceRay(ray, rec);
                     //check range R G B need to be between 0 and 1
