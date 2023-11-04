@@ -109,7 +109,7 @@ namespace RayTracingApp
             float tGlobal = (globalP - ray.Origin).Dot(ray.Direction);
 
             // Update Hit if this is the closest intersection
-            if (tGlobal > 1.0E-6 && tGlobal < hit.Tmin)
+            if (tGlobal > 3.0E-5 && tGlobal < hit.Tmin)
                 hit = new Hit(tGlobal, material.Color, true, material, globalP, globalNorm, tGlobal);
 
             return true;

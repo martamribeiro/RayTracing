@@ -149,10 +149,6 @@ namespace RayTracingApp
                 for (int j = 0; j < 4; j++)
                     resultValues[i] += (float)transformationMatrix[i, j] * vecValues[j];
 
-            for (int i = 0; i < 4; i++)
-                if (Math.Abs(resultValues[i]) < 1.0E-5)
-                    resultValues[i] = 0.0f;
-
             return new Vector4(resultValues[0], resultValues[1], resultValues[2], resultValues[3]);
         }
 
