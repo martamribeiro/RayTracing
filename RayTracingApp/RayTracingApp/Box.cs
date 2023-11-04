@@ -12,11 +12,6 @@ namespace RayTracingApp
         // The Box's material
         private Material material;
 
-        // The Box's Transformation 
-        private Transformation transformation;
-        private Transformation inverseTransformation;
-        private Transformation invTransfTransposed;
-
         private Vector3[] bounds = new Vector3[2];
 
         // Getters
@@ -36,7 +31,7 @@ namespace RayTracingApp
 
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
-            this.invTransfTransposed = this.inverseTransformation.Transpose();
+            this.invTransTransposed = this.inverseTransformation.Transpose();
 
             Vector3 vmin = new Vector3(-0.5f, -0.5f, -0.5f);
             Vector3 vmax = new Vector3(0.5f, 0.5f, 0.5f);
@@ -146,53 +141,6 @@ namespace RayTracingApp
             float tmp = t0;
             t0 = t1;
             t1 = tmp;
-        }
-
-        // Converts the given Global Point to the Local Coordinate system of the Object
-        public Vector3 toLocalPoint(Vector3 point)
-        {
-            Vector4 homoPoint = Vector4.CartesianToHomogeneous(point, 1.0f);
-            Vector4 localHomoPoint = inverseTransformation.ApplyTransformation(homoPoint);
-            Vector3 localPoint = Vector4.HomogeneousToCartesian(localHomoPoint);
-
-            return localPoint;
-        }
-
-        // Converts the given Global Vector to the Local Coordinate system of the Object
-        public Vector3 toLocalVec(Vector3 vec)
-        {
-            Vector4 homoVec = Vector4.CartesianToHomogeneous(vec, 0.0f);
-            Vector4 localHomoVec = inverseTransformation.ApplyTransformation(homoVec);
-
-            return Vector4.HomogeneousToCartesian(localHomoVec);
-        }
-
-        // Converts the given Local Point to the Global Coordinate system
-        public Vector3 toGlobalPoint(Vector3 point)
-        {
-            Vector4 homoPoint = Vector4.CartesianToHomogeneous(point, 1.0f);
-            Vector4 globalHomoPoint = transformation.ApplyTransformation(homoPoint);
-
-            return Vector4.HomogeneousToCartesian(globalHomoPoint);
-        }
-
-        // Converts the given Local Vector to the Global Coordinate system
-        public Vector3 toGlobalVec(Vector3 vec)
-        {
-            Vector4 homoVec = Vector4.CartesianToHomogeneous(vec, 0.0f);
-            Vector4 globalHomoVec = transformation.ApplyTransformation(homoVec);
-
-            return Vector4.HomogeneousToCartesian(globalHomoVec);
-        }
-
-        // Converts the given Local Normal to the Global Coordinate System
-        public Vector3 toGlobalNorm(Vector3 norm)
-        {
-            Vector4 normHom = Vector4.CartesianToHomogeneous(norm, 0.0f);
-            Vector4 globalNormHom = invTransfTransposed.ApplyTransformation(normHom);
-            Vector3 globalNorm = Vector4.HomogeneousToCartesian(globalNormHom);
-
-            return globalNorm.Normalize();
         }
 
         public void updateBounds(Vector3 minBound, Vector3 maxBound)

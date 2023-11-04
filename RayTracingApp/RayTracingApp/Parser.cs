@@ -55,15 +55,8 @@ namespace RayTracingApp
             }
 
             foreach (List<string> section in sections)
-            {
                 if (section.Count() > 0)
-                {
                     ProcessSection(section);
-                }
-            }
-
-            Debug.WriteLine("Finished Constructing Scene");
-            
         }
 
         //process each section

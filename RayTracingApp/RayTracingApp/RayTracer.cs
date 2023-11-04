@@ -20,9 +20,7 @@ namespace RayTracingApp
             openFile.DefaultExt = "txt";
 
             if (openFile.ShowDialog() == DialogResult.OK)
-            {
                 Parser.ParseScene(openFile.FileName);
-            }
         }
 
         private Color3 TraceRay(Ray ray, int rec)
@@ -62,7 +60,7 @@ namespace RayTracingApp
                         }
 
 
-                        //if (!shadowHit.Found)
+                        if (!shadowHit.Found)
                             color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
                     }
 
@@ -144,6 +142,12 @@ namespace RayTracingApp
                     Ray ray = new Ray(direction, origin);
                     //max level of recursivity
                     int rec = 2;
+
+                    if (j == 199 - 110 && 150 == i)
+                    {
+                        Debug.Print("hello");
+                    }
+
                     //call traceRay() function
                     Color3 color = TraceRay(ray, rec);
                     //check range R G B need to be between 0 and 1
