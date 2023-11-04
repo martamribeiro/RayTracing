@@ -287,7 +287,6 @@
             labelRayTracer.Size = new Size(144, 37);
             labelRayTracer.TabIndex = 9;
             labelRayTracer.Text = "RayTracer";
-            labelRayTracer.Click += labelRayTracer_Click;
             // 
             // groupTransformation
             // 
@@ -500,7 +499,6 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "RayTracer";
             Text = "Form1";
-            Load += RayTracer_Load;
             groupImageResolution.ResumeLayout(false);
             groupImageResolution.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)imageResolutionVertical).EndInit();

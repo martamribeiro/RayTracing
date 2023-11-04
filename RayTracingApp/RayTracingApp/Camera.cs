@@ -25,11 +25,13 @@ namespace RayTracingApp
         public double Distance
         {
             get { return this.distance; }
+            set { this.distance = value; }
         }
 
         public double Fov
         {
             get { return this.fov; }
+            set { this.fov = value; }
         }
 
         public Camera(Transformation transformation, double distance, double fov)

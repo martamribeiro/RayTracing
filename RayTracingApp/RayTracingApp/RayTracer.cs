@@ -5,6 +5,8 @@ namespace RayTracingApp
 {
     public partial class RayTracer : Form
     {
+        private int rec;
+
         public RayTracer()
         {
             InitializeComponent();
@@ -21,6 +23,15 @@ namespace RayTracingApp
 
             if (openFile.ShowDialog() == DialogResult.OK)
                 Parser.ParseScene(openFile.FileName);
+
+            //default field values
+            cameraDistance.Value = (decimal)Scene.Instance.Camera.Distance;
+            cameraFieldOfView.Value = (decimal)Scene.Instance.Camera.Fov;
+            rendererRecursionDepth.Value = 2;
+            lightAmbientReflection.Checked = true;
+            lightRefraction.Checked = true;
+            lightSpecularReflection.Checked = true;
+            lightDiffuseReflection.Checked = true;
         }
 
         private Color3 TraceRay(Ray ray, int rec)
@@ -35,33 +46,39 @@ namespace RayTracingApp
                 Color3 color = new Color3(0.0, 0.0, 0.0);
                 foreach (Light light in Scene.Instance.Lights)
                 {
-                    //cálculo da componente de luz ambiente
-                    color += light.Intensity * hit.Material.Color * hit.Material.AmbientLight;
 
-                    //cálculo da componente de reflexão difusa
-                    Vector3 l = Vector4.Subtract(light.Transformation.ApplyTransformation(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)), hit.Point);
-                    float tLight = l.Length();
-                    l = l.Normalize();
-                    double cosTheta = hit.Normal.Dot(l);
-            
-                    if (cosTheta > 0.0)
+                    if (lightAmbientReflection.Checked == true)
                     {
-                        Ray shadowRay = new Ray(l, hit.Point + 8.0E-6f * hit.Normal);
-                        Hit shadowHit = new Hit();
+                        //cálculo da componente de luz ambiente
+                        color += light.Intensity * hit.Material.Color * hit.Material.AmbientLight;
+                    }
+                    if (lightDiffuseReflection.Checked == true)
+                    {
+                        //cálculo da componente de reflexão difusa
+                        Vector3 l = Vector4.Subtract(light.Transformation.ApplyTransformation(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)), hit.Point);
+                        float tLight = l.Length();
+                        l = l.Normalize();
+                        double cosTheta = hit.Normal.Dot(l);
 
-                        shadowHit.Tmin = tLight;
-
-                        foreach (Object3D currObject in Scene.Instance.Objects) 
+                        if (cosTheta > 0.0)
                         {
-                            currObject.Intersect(shadowRay, ref shadowHit);
+                            Ray shadowRay = new Ray(l, hit.Point + 8.0E-6f * hit.Normal);
+                            Hit shadowHit = new Hit();
 
-                            if (shadowHit.Found)
-                                break;
+                            shadowHit.Tmin = tLight;
+
+                            foreach (Object3D currObject in Scene.Instance.Objects)
+                            {
+                                currObject.Intersect(shadowRay, ref shadowHit);
+
+                                if (shadowHit.Found)
+                                    break;
+                            }
+
+
+                            if (!shadowHit.Found)
+                                color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
                         }
-
-
-                        if (!shadowHit.Found)
-                            color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
                     }
 
                     if (rec > 0)
@@ -69,40 +86,45 @@ namespace RayTracingApp
                         Vector3 r;
                         float cosThetaV = -(ray.Direction.Dot(hit.Normal));
 
-                        //cálculo da componente de reflexão especular
-                        if (hit.Material.SpecularLight > 0.0)
-                        {
-                            r = ray.Direction + 2.0f * cosThetaV * hit.Normal;
-                            r = r.Normalize();
+                        if (lightSpecularReflection.Checked == true) {
+                            //cálculo da componente de reflexão especular
+                            if (hit.Material.SpecularLight > 0.0)
+                            {
+                                r = ray.Direction + 2.0f * cosThetaV * hit.Normal;
+                                r = r.Normalize();
 
-                            Ray reflectedRay = new Ray(r, hit.Point + 8.0E-6f * hit.Normal);
+                                Ray reflectedRay = new Ray(r, hit.Point + 8.0E-6f * hit.Normal);
 
-                            //chamar o raytracer recursivamente
-                            Color3 reflectedColor = TraceRay(reflectedRay, rec - 1);
+                                //chamar o raytracer recursivamente
+                                Color3 reflectedColor = TraceRay(reflectedRay, rec - 1);
 
-                            color = color + hit.Material.Color * (hit.Material.SpecularLight + (1.0 - hit.Material.SpecularLight) * Math.Pow(1.0 - cosThetaV, 5)) * reflectedColor;
+                                color = color + hit.Material.Color * (hit.Material.SpecularLight + (1.0 - hit.Material.SpecularLight) * Math.Pow(1.0 - cosThetaV, 5)) * reflectedColor;
+                            }
                         }
 
-                        //cálculo da componente de refração
-                        if (hit.Material.RefractedLight > 0.0)
+                        if (lightRefraction.Checked == true)
                         {
-                            float eta = 1.0f / hit.Material.RefractiveIndex;
-
-                            float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV));
-
-                            if (cosThetaV < 0.0)
+                            //cálculo da componente de refração
+                            if (hit.Material.RefractedLight > 0.0)
                             {
-                                eta = hit.Material.RefractiveIndex;
-                                cosThetaR = -cosThetaR;
+                                float eta = 1.0f / hit.Material.RefractiveIndex;
+
+                                float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV));
+
+                                if (cosThetaV < 0.0)
+                                {
+                                    eta = hit.Material.RefractiveIndex;
+                                    cosThetaR = -cosThetaR;
+                                }
+
+                                r = eta * ray.Direction + (eta * cosThetaV - cosThetaR) * hit.Normal;
+                                r = r.Normalize();
+
+                                Ray refractedRay = new Ray(r, hit.Point);
+
+                                Color3 refractedColor = TraceRay(refractedRay, rec - 1);
+                                color = color + hit.Material.Color * hit.Material.RefractedLight * refractedColor;
                             }
-
-                            r = eta * ray.Direction + (eta * cosThetaV - cosThetaR) * hit.Normal;
-                            r = r.Normalize();
-
-                            Ray refractedRay = new Ray(r, hit.Point);
-
-                            Color3 refractedColor = TraceRay(refractedRay, rec - 1);
-                            color = color + hit.Material.Color * hit.Material.RefractedLight * refractedColor;
                         }
 
                     }
@@ -122,6 +144,23 @@ namespace RayTracingApp
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            if (Scene.Instance.Camera != null)
+            {
+                rec = 2;
+                //ver valores UI
+                Scene.Instance.Camera.Distance = (double)cameraDistance.Value;
+                Scene.Instance.Camera.Fov = (double)cameraFieldOfView.Value;
+                //transformationOrientationHorizontal.Value
+                //transformationOrientationVertical.Value
+                //transformationCenterX.Value
+                //transformationCenterY.Value
+                //transformationCenterZ.Value
+                rec = (int)rendererRecursionDepth.Value;
+                //imageResolutionHorizontal.Value
+                //imageResolutionVertical.Value
+            }
+
+            //inicializa o painel novamente para iniciar o processo de pintura
             sceneContainer.Invalidate();
         }
 
@@ -163,8 +202,6 @@ namespace RayTracingApp
                     direction = direction.Normalize();
                     //construct the ray
                     Ray ray = new Ray(direction, origin);
-                    //max level of recursivity
-                    int rec = 2;
 
                     if (j == 199 - 50 && i == 50)
                         Debug.Assert(true);
@@ -186,14 +223,5 @@ namespace RayTracingApp
             }
         }
 
-        private void labelRayTracer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RayTracer_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
