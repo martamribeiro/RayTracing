@@ -118,7 +118,7 @@ namespace RayTracingApp
                 Vector3 norm = CalculateNormal(p);
                 norm = toGlobalNorm(norm);
 
-                hit = new Hit(tGlobal, this.Material.Color, true, this.material, p, norm, tGlobal);
+                hit = new Hit(tGlobal, this.Material.Color, true, this.material, pGlobal, norm, tGlobal);
             }
 
             return true;
@@ -127,27 +127,17 @@ namespace RayTracingApp
         // Calculates the normal on a given point
         public Vector3 CalculateNormal(Vector3 point)
         {
-            Vector3 center = (this.bounds[0] + this.bounds[1]) / 2.0f;
-            Vector3 offset = point - center;
+            float x = Math.Abs(point.X);
+            float y = Math.Abs(point.Y);
+            float z = Math.Abs(point.Z);
 
-            offset = new Vector3(Math.Abs(offset.X), Math.Abs(offset.Y), Math.Abs(offset.Z));
+            if ((x > y) && (x > z))
+                return new Vector3(point.X, 0.0f, 0.0f).Normalize();
 
-            Vector3 normal = new Vector3(0.0f, 0.0f, 0.0f);
+            if ((y > x) && (y > z))
+                return new Vector3(0.0f, point.Y, 0.0f).Normalize();
 
-            if (offset.X >= offset.Y && offset.X >= offset.Z)
-            {
-                normal = new Vector3(Math.Sign(point.X - center.X), 0, 0);
-            }
-            else if (offset.Y >= offset.X && offset.Y >= offset.Z)
-            {
-                normal = new Vector3(0, Math.Sign(point.Y - center.Y), 0);
-            }
-            else if (offset.Z >= offset.X && offset.Z >= offset.Y)
-            {
-                normal = new Vector3(0, 0, Math.Sign(point.Z - center.Z));
-            }
-
-            return normal.Normalize();
+            return new Vector3(0.0f, 0.0f, point.Z).Normalize();
         }
 
         // Swaps the two given values (Utils function)

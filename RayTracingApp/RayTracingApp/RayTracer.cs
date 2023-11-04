@@ -62,7 +62,7 @@ namespace RayTracingApp
                         }
 
 
-                        if (!shadowHit.Found)
+                        //if (!shadowHit.Found)
                             color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
                     }
 
