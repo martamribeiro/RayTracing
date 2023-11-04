@@ -64,22 +64,45 @@ namespace RayTracingApp
                             color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
                     }
 
-                    //cálculo da componente de reflexão especular
                     if (rec > 0)
                     {
-                        double cosThetaV = -(ray.Direction.Dot(hit.Normal));
+                        Vector3 r;
+                        float cosThetaV = -(ray.Direction.Dot(hit.Normal));
 
-                        if(hit.Material.SpecularLight > 0.0)
+                        //cálculo da componente de reflexão especular
+                        if (hit.Material.SpecularLight > 0.0)
                         {
-                            Vector3 r = ray.Direction + Convert.ToSingle(2.0 * cosThetaV) * hit.Normal;
+                            r = ray.Direction + 2.0f * cosThetaV * hit.Normal;
                             r = r.Normalize();
 
-                            Ray reflectedRay = new Ray(r, hit.Point);
+                            Ray reflectedRay = new Ray(r, hit.Point + 8.0E-6f * hit.Normal);
 
                             //chamar o raytracer recursivamente
-                            Color3 reflectedColor = TraceRay(reflectedRay, rec-1);
+                            Color3 reflectedColor = TraceRay(reflectedRay, rec - 1);
 
                             color = color + hit.Material.Color * (hit.Material.SpecularLight + (1.0 - hit.Material.SpecularLight) * Math.Pow(1.0 - cosThetaV, 5)) * reflectedColor;
+                        }
+
+                        //cálculo da componente de refração
+                        if (hit.Material.RefractedLight > 0.0)
+                        {
+                            float eta = 1.0f / hit.Material.RefractiveIndex;
+
+                            float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV));
+
+                            if (cosThetaV < 0.0)
+                            {
+                                eta = hit.Material.RefractiveIndex;
+                                cosThetaR = -cosThetaR;
+                            }
+
+                            r = eta * ray.Direction + (eta * cosThetaV - cosThetaR) * hit.Normal;
+                            r = r.Normalize();
+
+                            Ray refractedRay = new Ray(r, hit.Point);
+
+                            Color3 refractedColor = TraceRay(refractedRay, rec - 1);
+                            color = color + hit.Material.Color * hit.Material.RefractedLight * refractedColor;
                         }
 
                     }
@@ -143,10 +166,8 @@ namespace RayTracingApp
                     //max level of recursivity
                     int rec = 2;
 
-                    if (j == 199 - 110 && 150 == i)
-                    {
-                        Debug.Print("hello");
-                    }
+                    if (j == 199 - 50 && i == 50)
+                        Debug.Assert(true);
 
                     //call traceRay() function
                     Color3 color = TraceRay(ray, rec);

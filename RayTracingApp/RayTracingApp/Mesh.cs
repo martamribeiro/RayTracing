@@ -11,9 +11,6 @@ namespace RayTracingApp
         // A List of Triangles that make up the Mesh
         private List<Triangle> triangles;
 
-        // The Transformation to be applied to all the Mesh's Triangles
-        private Transformation transformation;
-
         private Box boundingBox;
 
         // Getters
@@ -31,7 +28,12 @@ namespace RayTracingApp
         public Mesh(List<Triangle> triangles, Transformation transformation) 
         {
             this.triangles = triangles;
-            this.transformation = transformation;
+
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
+
+            this.transformation = (fullTrans != null) ? fullTrans : transformation;
+            this.inverseTransformation = this.transformation.Inverse();
+            this.invTransTransposed = this.inverseTransformation.Transpose();
 
             Random rnd = new Random();
 

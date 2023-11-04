@@ -58,39 +58,39 @@ namespace RayTracingApp
             if (Math.Abs(normal.Dot(rayLocalDir)) < 1.0E-6) 
                 return false;
 
-            // Calculate the point where the ray intersects the triangle's plane
-            Vector3 w = verticeA - rayLocalOrig;
-            
-            float t = w.Dot(this.normal) / rayLocalDir.Dot(this.normal);
+            // Compute t
+            float d = -normal.Dot(verticeA);
+            float t = -(normal.Dot(rayLocalOrig) + d) / normal.Dot(rayLocalDir);
 
             if (t < 0.0f)
                 return false;
 
+            // Compute the intersection point
             Vector3 intP = rayLocalOrig + t * rayLocalDir;
 
             // Check if point P is inside or outside the triangle
             Vector3 c;
 
             // Edge AB
-            Vector3 edgeAB = verticeB - verticeA;
-            Vector3 vpAB = intP - verticeA;
-            c = edgeAB.Cross(vpAB);
+            Vector3 edge0 = verticeB - verticeA;
+            Vector3 vp0 = intP - verticeA;
+            c = edge0.Cross(vp0);
 
             if (normal.Dot(c) < 0.0f)
                 return false;
 
             // Edge BC
-            Vector3 edgeBC = verticeC - verticeB;
-            Vector3 vpBC = intP - verticeB;
-            c = edgeBC.Cross(vpBC);
+            Vector3 edge1 = verticeC - verticeB;
+            Vector3 vp1 = intP - verticeB;
+            c = edge1.Cross(vp1);
 
             if (normal.Dot(c) < 0.0f)
                 return false;
 
             // Edge AC
-            Vector3 edgeAC = verticeA - verticeC;
-            Vector3 vpAC = intP - verticeC;
-            c = edgeAC.Cross(vpAC);
+            Vector3 edge2 = verticeA - verticeC;
+            Vector3 vp2 = intP - verticeC;
+            c = edge2.Cross(vp2);
 
             if (normal.Dot(c) < 0.0f)
                 return false;
