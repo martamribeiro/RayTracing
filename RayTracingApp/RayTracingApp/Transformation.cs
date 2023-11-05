@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +12,39 @@ namespace RayTracingApp
         // Matrix used to represent the transformation
         private double[,] transformationMatrix = new double[4, 4];
 
+        private Vector3 translation;
+
+        private Vector3 rotation;
+
         public double[,] TransformationMatrix
         {
             get { return transformationMatrix; }
         }
 
+        public Vector3 Translation
+        {
+            get { return translation; }
+        }
+
+        public Vector3 Rotation
+        {
+            get { return rotation; }
+        }
+
         public Transformation()
         {
             this.transformationMatrix = IdentityMatrix();
+            this.translation = new Vector3(0.0f, 0.0f, 0.0f);
+            this.rotation = new Vector3(0.0f, 0.0f, 0.0f);
         }
 
-        public Transformation(double[,] transformationMatrix)
+        public Transformation(double[,] transformationMatrix) : this(transformationMatrix, new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f)){}
+
+        public Transformation(double[,] transformationMatrix, Vector3 rotation, Vector3 translation)
         {
             this.transformationMatrix = transformationMatrix;
+            this.translation = translation;
+            this.rotation = rotation;
         }
 
         // Creates and Returns a new Identity Matrix
@@ -55,19 +76,21 @@ namespace RayTracingApp
             if (resultMatrix == null)
                 return this;
 
-            return new Transformation(resultMatrix);
+            translation = new Vector3((float)resultMatrix[0, 3], (float)resultMatrix[1, 3], (float)resultMatrix[2, 3]);
+
+            return new Transformation(resultMatrix, rotation, translation);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the X axis to the current TransformationMatrix
         public Transformation RotateX(double angle)
         {
-            angle *= (Math.PI / 180.0);
+            double radians = angle * (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
                 { 1.0, 0.0, 0.0, 0.0 },
-                { 0.0, Math.Cos(angle), -Math.Sin(angle), 0.0 },
-                { 0.0, Math.Sin(angle), Math.Cos(angle), 0.0 },
+                { 0.0, Math.Cos(radians), -Math.Sin(radians), 0.0 },
+                { 0.0, Math.Sin(radians), Math.Cos(radians), 0.0 },
                 { 0.0, 0.0, 0.0, 1.0 }
             };
 
@@ -76,19 +99,21 @@ namespace RayTracingApp
             if (resultMatrix == null)
                 return this;
 
-            return new Transformation(resultMatrix);
+            rotation = rotation.changeX(rotation.X + (float)angle);
+
+            return new Transformation(resultMatrix, rotation, translation);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the Y axis to the current TransformationMatrix
         public Transformation RotateY(double angle)
         {
-            angle *= (Math.PI / 180.0);
+            double radians = angle * (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
-                { Math.Cos(angle), 0.0, Math.Sin(angle), 0.0 },
+                { Math.Cos(radians), 0.0, Math.Sin(radians), 0.0 },
                 { 0.0, 1.0, 0.0, 0.0 },
-                { -Math.Sin(angle), 0.0, Math.Cos(angle), 0.0 },
+                { -Math.Sin(radians), 0.0, Math.Cos(radians), 0.0 },
                 { 0.0, 0.0, 0.0, 1.0 }
             };
 
@@ -97,18 +122,20 @@ namespace RayTracingApp
             if (resultMatrix == null)
                 return this;
 
-            return new Transformation(resultMatrix);
+            rotation = rotation.changeY(rotation.Y + (float)angle);
+
+            return new Transformation(resultMatrix, rotation, translation);
         }
 
         // Creates and Returns a new Transformation by applying the given Rotation in the Z axis to the current TransformationMatrix
         public Transformation RotateZ(double angle)
         {
-            angle *= (Math.PI / 180.0);
+            double radians = angle * (Math.PI / 180.0);
 
             double[,] rotationMatrix =
             {
-                { Math.Cos(angle), -Math.Sin(angle), 0.0, 0.0 },
-                { Math.Sin(angle), Math.Cos(angle), 0.0, 0.0 },
+                { Math.Cos(radians), -Math.Sin(radians), 0.0, 0.0 },
+                { Math.Sin(radians), Math.Cos(radians), 0.0, 0.0 },
                 { 0.0, 0.0, 1.0, 0.0 },
                 { 0.0, 0.0, 0.0, 1.0 }
             };
@@ -118,7 +145,9 @@ namespace RayTracingApp
             if (resultMatrix == null)
                 return this;
 
-            return new Transformation(resultMatrix);
+            rotation = rotation.changeZ(rotation.Z + (float)angle);
+
+            return new Transformation(resultMatrix, rotation, translation);
         }
 
         // Creates and Returns a new Transformation by applying the given Scale to the current TransformationMatrix
@@ -137,7 +166,7 @@ namespace RayTracingApp
             if (resultMatrix == null)
                 return this;
 
-            return new Transformation(resultMatrix);
+            return new Transformation(resultMatrix, rotation, translation);
         }
 
         public Vector4 ApplyTransformation(Vector4 vec)
@@ -149,7 +178,9 @@ namespace RayTracingApp
                 for (int j = 0; j < 4; j++)
                     resultValues[i] += (float)transformationMatrix[i, j] * vecValues[j];
 
-            return new Vector4(resultValues[0], resultValues[1], resultValues[2], resultValues[3]);
+            float z = vec.IsPoint ? resultValues[3] : 0.0f;
+
+            return new Vector4(resultValues[0], resultValues[1], resultValues[2], z);
         }
 
         // Creates and Returns a new Transformation by transposing the current TransformationMatrix
@@ -178,6 +209,27 @@ namespace RayTracingApp
                 return null;
 
             return new Transformation(result);
+        }
+
+        public String ToString()
+        {
+            String s = "";
+            for (int i = 0; i < 4; i++)
+            {
+                s += "[";
+                for (int j = 0; j < 4; j++)
+                {
+                    if (j != 3)
+                    {
+                        s += String.Format("{0,3:N5}, ", transformationMatrix[i, j]);
+                        continue;
+                    }
+                    s += String.Format("{0,3:N5}", transformationMatrix[i, j]);
+                }
+                s += "]\n";
+            }
+
+            return s;
         }
 
         //

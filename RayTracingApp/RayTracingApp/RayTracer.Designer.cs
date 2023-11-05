@@ -177,7 +177,7 @@
             saveImageButton.TabIndex = 4;
             saveImageButton.Text = "Save Image...";
             saveImageButton.UseVisualStyleBackColor = true;
-            this.saveImageButton.Click += new System.EventHandler(this.saveImageButton_Click);
+            saveImageButton.Click += saveImageButton_Click;
             // 
             // exitButton
             // 
@@ -335,6 +335,7 @@
             // 
             transformationCenterZ.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             transformationCenterZ.Location = new Point(220, 86);
+            transformationCenterZ.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
             transformationCenterZ.Name = "transformationCenterZ";
             transformationCenterZ.Size = new Size(46, 23);
             transformationCenterZ.TabIndex = 16;
@@ -343,6 +344,7 @@
             // 
             transformationCenterY.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             transformationCenterY.Location = new Point(135, 86);
+            transformationCenterY.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
             transformationCenterY.Name = "transformationCenterY";
             transformationCenterY.Size = new Size(46, 23);
             transformationCenterY.TabIndex = 14;
@@ -351,6 +353,7 @@
             // 
             transformationCenterX.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             transformationCenterX.Location = new Point(48, 86);
+            transformationCenterX.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
             transformationCenterX.Name = "transformationCenterX";
             transformationCenterX.Size = new Size(46, 23);
             transformationCenterX.TabIndex = 12;
@@ -369,6 +372,8 @@
             // 
             transformationOrientationVertical.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             transformationOrientationVertical.Location = new Point(220, 39);
+            transformationOrientationVertical.Maximum = new decimal(new int[] { 360, 0, 0, 0 });
+            transformationOrientationVertical.Minimum = new decimal(new int[] { 360, 0, 0, int.MinValue });
             transformationOrientationVertical.Name = "transformationOrientationVertical";
             transformationOrientationVertical.Size = new Size(46, 23);
             transformationOrientationVertical.TabIndex = 10;
@@ -407,6 +412,8 @@
             // 
             transformationOrientationHorizontal.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             transformationOrientationHorizontal.Location = new Point(93, 39);
+            transformationOrientationHorizontal.Maximum = new decimal(new int[] { 360, 0, 0, 0 });
+            transformationOrientationHorizontal.Minimum = new decimal(new int[] { 360, 0, 0, int.MinValue });
             transformationOrientationHorizontal.Name = "transformationOrientationHorizontal";
             transformationOrientationHorizontal.Size = new Size(46, 23);
             transformationOrientationHorizontal.TabIndex = 8;

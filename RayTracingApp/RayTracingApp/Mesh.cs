@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace RayTracingApp
 {
@@ -34,8 +35,6 @@ namespace RayTracingApp
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
             this.invTransTransposed = this.inverseTransformation.Transpose();
-
-            Random rnd = new Random();
 
             Color3 white = new Color3(1f, 1f, 1f);
             Material boxMat = new Material(white, 1f, 1f, 1f, 1f, 1f);

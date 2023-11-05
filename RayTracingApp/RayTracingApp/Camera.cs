@@ -20,6 +20,7 @@ namespace RayTracingApp
         public Transformation Transformation
         {
             get { return this.transformation; }
+            set { this.transformation = value; }
         }
 
         public double Distance

@@ -54,21 +54,16 @@ namespace RayTracingApp
 
             Vector3 rayLocalOrig = toLocalPoint(ray.Origin);
 
-            float t = (centerPoint - rayLocalOrig).Dot(rayLocalDir);
+            float a = rayLocalDir.Dot(rayLocalDir);
+            float b = 2 * rayLocalDir.Dot(rayLocalOrig);
+            float c = rayLocalOrig.Dot(rayLocalOrig) - 1;
 
-            if (t < 0.0f)
+            if (Math.Pow(b, 2) < (4 * a * c))
                 return false;
 
-            Vector3 p = rayLocalOrig + rayLocalDir * t;
-
-            float y = (centerPoint - p).Length();
-
-            if (y > radious)
-                return false;
-
-            float x = (float)Math.Sqrt(Math.Pow(radious, 2) + Math.Pow(y, 2));
-            float t1 = t - x;
-            float t2 = t + x;
+            float d = (float)Math.Sqrt(Math.Pow(b, 2) - (4 * a * c));
+            float t1 = (-b + d) / (2 * a);
+            float t2 = (-b - d) / (2 * a);
 
             float tnear = (t1 > t2) ? t2 : t1;
 
@@ -82,8 +77,7 @@ namespace RayTracingApp
             if (tGlobal > 1.0E-6 && tGlobal < hit.Tmin)
             {
                 // Get the Global Normal
-                Vector3 norm = intP / intP.Length();
-                norm = norm.Normalize();
+                Vector3 norm = intP.Normalize();
                 Vector3 globalNorm = toGlobalNorm(norm);
 
                 hit = new Hit(tGlobal, this.Material.Color, true, this.material, globalP, globalNorm, tGlobal);

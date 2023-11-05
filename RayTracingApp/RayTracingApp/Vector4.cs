@@ -15,11 +15,14 @@ namespace RayTracingApp
         private float z;
         private float w;
 
+        private bool isPoint = false;
+
         //read only
         public float X => x;
         public float Y => y;
         public float Z => z;
         public float W => w;
+        public bool IsPoint => isPoint;
 
         public Vector4(float x, float y, float z, float w)
         {
@@ -27,6 +30,8 @@ namespace RayTracingApp
             this.y = y;
             this.z = z;
             this.w = w;
+
+            this.isPoint = w != 0; 
         }
 
         //convertion methods
@@ -42,7 +47,7 @@ namespace RayTracingApp
 
         public static Vector3 HomogeneousToCartesian(Vector4 homogeneous)
         {
-            if (homogeneous.W == 0.0f) //if vector
+            if (!homogeneous.IsPoint) //if vector
             {
                 float xCartesian = homogeneous.X;
                 float yCartesian = homogeneous.Y;
@@ -55,8 +60,6 @@ namespace RayTracingApp
                 float zCartesian = homogeneous.Z / homogeneous.W;
                 return new Vector3(xCartesian, yCartesian, zCartesian);
             }
-            //if invalid w value
-            throw new InvalidOperationException("Cannot convert from homogeneous coordinates with w different from 0 or 1.");
         }
 
         public static Vector3 Subtract(Vector4 v4, Vector3 v3)

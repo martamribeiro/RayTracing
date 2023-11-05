@@ -28,6 +28,13 @@ namespace RayTracingApp
             //default field values
             cameraDistance.Value = (decimal)Scene.Instance.Camera.Distance;
             cameraFieldOfView.Value = (decimal)Scene.Instance.Camera.Fov;
+
+            transformationOrientationHorizontal.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.X;
+            transformationOrientationVertical.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.Z;
+            transformationCenterX.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.X;
+            transformationCenterY.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Y;
+            transformationCenterZ.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Z;
+
             rendererRecursionDepth.Value = 2;
             lightAmbientReflection.Checked = true;
             lightRefraction.Checked = true;
@@ -45,6 +52,7 @@ namespace RayTracingApp
             if (hit.Found)
             {
                 Color3 color = new Color3(0.0, 0.0, 0.0);
+
                 foreach (Light light in Scene.Instance.Lights)
                 {
 
@@ -87,18 +95,20 @@ namespace RayTracingApp
                         Vector3 r;
                         float cosThetaV = -(ray.Direction.Dot(hit.Normal));
 
-                        if (lightSpecularReflection.Checked == true) {
+                        if (lightSpecularReflection.Checked == true)
+                        {
                             //cálculo da componente de reflexão especular
                             if (hit.Material.SpecularLight > 0.0)
                             {
                                 r = ray.Direction + 2.0f * cosThetaV * hit.Normal;
                                 r = r.Normalize();
 
-                                Ray reflectedRay = new Ray(r, hit.Point + 8.0E-6f * hit.Normal);
+                                Ray reflectedRay = new Ray(r, hit.Point + 8.0E-5f * hit.Normal);
 
                                 //chamar o raytracer recursivamente
                                 Color3 reflectedColor = TraceRay(reflectedRay, rec - 1);
 
+                                //color = color + hit.Material.Color * hit.Material.SpecularLight * reflectedColor;
                                 color = color + hit.Material.Color * (hit.Material.SpecularLight + (1.0 - hit.Material.SpecularLight) * Math.Pow(1.0 - cosThetaV, 5)) * reflectedColor;
                             }
                         }
@@ -151,11 +161,15 @@ namespace RayTracingApp
                 //ver valores UI
                 Scene.Instance.Camera.Distance = (double)cameraDistance.Value;
                 Scene.Instance.Camera.Fov = (double)cameraFieldOfView.Value;
-                //transformationOrientationHorizontal.Value
-                //transformationOrientationVertical.Value
-                //transformationCenterX.Value
-                //transformationCenterY.Value
-                //transformationCenterZ.Value
+
+                Transformation cameraTransformation = new Transformation();
+                cameraTransformation = cameraTransformation.Translate((double)transformationCenterX.Value, (double)transformationCenterY.Value, (double)transformationCenterZ.Value);
+
+                cameraTransformation = cameraTransformation.RotateZ((double)transformationOrientationHorizontal.Value);
+                cameraTransformation = cameraTransformation.RotateX((double)transformationOrientationVertical.Value);
+
+                Scene.Instance.Camera.Transformation = cameraTransformation;
+
                 rec = (int)rendererRecursionDepth.Value;
                 //imageResolutionHorizontal.Value
                 //imageResolutionVertical.Value
