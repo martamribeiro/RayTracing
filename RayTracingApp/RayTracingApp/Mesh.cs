@@ -32,6 +32,7 @@ namespace RayTracingApp
 
             Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
 
+            this.originalTransformation = transformation;
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
             this.invTransTransposed = this.inverseTransformation.Transpose();
@@ -69,6 +70,20 @@ namespace RayTracingApp
         public void updateBoundingBox(Vector3 minBound, Vector3 maxBound)
         {
             boundingBox.updateBounds(minBound, maxBound);
+        }
+
+        public override void  recalcTransformations()
+        {
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * originalTransformation;
+
+            transformation = (fullTrans != null) ? fullTrans : originalTransformation;
+            inverseTransformation = transformation.Inverse();
+            invTransTransposed = inverseTransformation.Transpose();
+
+            foreach (Triangle triangle in triangles)
+                triangle.recalcTransformations();
+
+            boundingBox.recalcTransformations();
         }
     }
 }

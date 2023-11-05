@@ -29,6 +29,7 @@ namespace RayTracingApp
 
             Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
 
+            this.originalTransformation = transformation;
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
             this.invTransTransposed = this.inverseTransformation.Transpose();

@@ -8,12 +8,13 @@ namespace RayTracingApp
 {
     internal class Light
     {
+        private Transformation originalTransformation;
         // Transformation applied to the Camera
         private Transformation transformation;
 
         private Transformation inverseTransformation;
 
-        private Transformation invTransfTransposed;
+        private Transformation invTransTransposed;
 
         private Color3 intensity;
 
@@ -34,9 +35,19 @@ namespace RayTracingApp
 
             Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
 
+            this.originalTransformation = transformation;
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
-            this.invTransfTransposed = this.inverseTransformation.Transpose();
+            this.invTransTransposed = this.inverseTransformation.Transpose();
+        }
+
+        public void recalcTransformations()
+        {
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * originalTransformation;
+
+            transformation = (fullTrans != null) ? fullTrans : originalTransformation;
+            inverseTransformation = transformation.Inverse();
+            invTransTransposed = inverseTransformation.Transpose();
         }
     }
 }

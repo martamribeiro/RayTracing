@@ -32,8 +32,8 @@ namespace RayTracingApp
             cameraDistance.Value = (decimal)Scene.Instance.Camera.Distance;
             cameraFieldOfView.Value = (decimal)Scene.Instance.Camera.Fov;
 
-            transformationOrientationHorizontal.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.X;
-            transformationOrientationVertical.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.Z;
+            transformationOrientationVertical.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.X;
+            transformationOrientationHorizontal.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.Z;
             transformationCenterX.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.X;
             transformationCenterY.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Y;
             transformationCenterZ.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Z;
@@ -128,7 +128,7 @@ namespace RayTracingApp
 
                                 float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV * cosThetaV));
 
-                                if (cosThetaV < 0.0)
+                                if (ray.Direction.Dot(hit.Normal) > 0.0)
                                 {
                                     eta = hit.Material.RefractiveIndex;
                                     cosThetaR = -cosThetaR;
@@ -137,7 +137,7 @@ namespace RayTracingApp
                                 r = eta * ray.Direction + (eta * cosThetaV - cosThetaR) * hit.Normal;
                                 r = r.Normalize();
 
-                                Ray refractedRay = new Ray(r, hit.Point);
+                                Ray refractedRay = new Ray(r, hit.Point + 8.0E-5f * r);
 
                                 Color3 refractedColor = TraceRay(refractedRay, rec - 1);
                                 color = color + hit.Material.RefractedColor * refractedColor;
@@ -170,16 +170,21 @@ namespace RayTracingApp
 
                 Transformation cameraTransformation = new Transformation();
                 cameraTransformation = cameraTransformation.Translate((double)transformationCenterX.Value, (double)transformationCenterY.Value, (double)transformationCenterZ.Value);
-
-                cameraTransformation = cameraTransformation.RotateZ((double)transformationOrientationHorizontal.Value);
                 cameraTransformation = cameraTransformation.RotateX((double)transformationOrientationVertical.Value);
+                cameraTransformation = cameraTransformation.RotateZ((double)transformationOrientationHorizontal.Value);
 
                 Scene.Instance.Camera.Transformation = cameraTransformation;
 
+                foreach (Object3D obj in Scene.Instance.Objects)
+                    obj.recalcTransformations();
+
+                foreach (Light light in Scene.Instance.Lights)
+                    light.recalcTransformations();
+
                 rec = (int)rendererRecursionDepth.Value;
 
-                Scene.Instance.Image.ResX = (int)imageResolutionHorizontal.Value;
-                Scene.Instance.Image.ResY = (int)imageResolutionVertical.Value;
+                Scene.Instance.Image!.ResX = (int)imageResolutionHorizontal.Value;
+                Scene.Instance.Image!.ResY = (int)imageResolutionVertical.Value;
             }
 
             //inicializa o painel novamente para iniciar o processo de pintura

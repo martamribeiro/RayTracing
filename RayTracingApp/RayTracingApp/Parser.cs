@@ -57,6 +57,8 @@ namespace RayTracingApp
             foreach (List<string> section in sections)
                 if (section.Count() > 0)
                     ProcessSection(section);
+
+            Debug.Assert(true);
         }
 
         //process each section

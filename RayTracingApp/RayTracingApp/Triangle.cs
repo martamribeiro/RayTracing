@@ -27,6 +27,7 @@ namespace RayTracingApp
 
             Transformation? fullTrans = Scene.Instance.Camera!.Transformation * transformation;
 
+            this.originalTransformation = transformation;
             this.transformation = (fullTrans != null) ? fullTrans : transformation;
             this.inverseTransformation = this.transformation.Inverse();
             this.invTransTransposed = this.inverseTransformation.Transpose();
@@ -58,6 +59,7 @@ namespace RayTracingApp
             if (Math.Abs(normal.Dot(rayLocalDir)) < 1.0E-6) 
                 return false;
 
+            /*
             // Compute t
             float d = -normal.Dot(verticeA);
             float t = -(normal.Dot(rayLocalOrig) + d) / normal.Dot(rayLocalDir);
@@ -65,6 +67,7 @@ namespace RayTracingApp
             if (t < 0.0f)
                 return false;
 
+            
             // Compute the intersection point
             Vector3 intP = rayLocalOrig + t * rayLocalDir;
 
@@ -94,6 +97,35 @@ namespace RayTracingApp
 
             if (normal.Dot(c) < 0.0f)
                 return false;
+            */
+
+            Vector3 edge1 = verticeB - verticeA;
+            Vector3 edge2 = verticeC - verticeA;
+
+            Vector3 crossRayDirEdge2 = rayLocalDir.Cross(edge2);
+
+            float det = edge1.Dot(crossRayDirEdge2);
+
+            if (det > -1.0E-6 && det < 3.0E-5)
+                return false;
+
+            float inv_det = 1.0f / det;
+
+            Vector3 origMinusVertA = rayLocalOrig - verticeA;
+            float baryU = origMinusVertA.Dot(crossRayDirEdge2) * inv_det;
+
+            if (baryU < 0.0f || baryU > 1.0f)
+                return false;
+
+            Vector3 crossOrigMinusVertAEdge1 = origMinusVertA.Cross(edge1);
+            float baryV = rayLocalDir.Dot(crossOrigMinusVertAEdge1) * inv_det;
+
+            if (baryV < 0.0f || baryU + baryV > 1.0f)
+                return false;
+
+            float t = edge2.Dot(crossOrigMinusVertAEdge1) * inv_det;
+
+            Vector3 intP = rayLocalOrig + t * rayLocalDir;
 
             // Transform everything to global coordinates
             Vector3 globalP = toGlobalPoint(intP);

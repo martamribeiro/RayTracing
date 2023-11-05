@@ -8,6 +8,7 @@ namespace RayTracingApp
 {
     internal abstract class Object3D
     {
+        protected Transformation originalTransformation;
         protected Transformation transformation;
         protected Transformation inverseTransformation;
         protected Transformation invTransTransposed;
@@ -62,6 +63,15 @@ namespace RayTracingApp
             Vector3 globalNorm = Vector4.HomogeneousToCartesian(globalNormHom);
 
             return globalNorm.Normalize();
+        }
+
+        public virtual void recalcTransformations()
+        {
+            Transformation? fullTrans = Scene.Instance.Camera!.Transformation * originalTransformation;
+
+            transformation = (fullTrans != null) ? fullTrans : originalTransformation;
+            inverseTransformation = transformation.Inverse();
+            invTransTransposed = inverseTransformation.Transpose();
         }
     }
 }
