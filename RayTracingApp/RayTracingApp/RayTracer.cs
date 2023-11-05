@@ -223,5 +223,39 @@ namespace RayTracingApp
             }
         }
 
+        private void saveImageButton_Click(object sender, EventArgs e)
+        {
+            if(Scene.Instance.Camera == null)
+            {
+                MessageBox.Show("There is no content to save.", "Warning");
+                return;
+            }
+
+            //resolução
+            int Vres = Scene.Instance.Image.ResY;
+            int Hres = Scene.Instance.Image.ResX;
+
+            //bitmap da parte pintada
+            Bitmap bmp = new Bitmap(Hres, Vres);
+
+            //desenhar conteudo no bitmap
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                sceneContainer.DrawToBitmap(bmp, new Rectangle(0, 0, Hres, Vres));
+            }
+
+            //guardar o bitmap
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "ImageFiles|*.png";
+            saveFileDialog.Title = "Save Image";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                bmp.Save(saveFileDialog.FileName);
+                MessageBox.Show("Image successfully saved.", "Success");
+            }
+
+            //limpar o bitmap
+            bmp.Dispose();
+        }
     }
 }
