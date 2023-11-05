@@ -1,5 +1,7 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 
 namespace RayTracingApp
 {
@@ -7,6 +9,7 @@ namespace RayTracingApp
     {
         private int rec;
         private Bitmap renderedImage = null;
+        private Semaphore paintSemaphore = new Semaphore(1, 1);
 
         public RayTracer()
         {
@@ -120,7 +123,7 @@ namespace RayTracingApp
                             {
                                 float eta = 1.0f / hit.Material.RefractiveIndex;
 
-                                float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV));
+                                float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV * cosThetaV));
 
                                 if (cosThetaV < 0.0)
                                 {
@@ -184,6 +187,21 @@ namespace RayTracingApp
             if (Scene.Instance.Camera == null)
                 return;
 
+            Thread trd = new Thread(new ThreadStart(Paint));
+            trd.Name = "Child";
+
+            trd.Start();
+            Paint();
+            trd.Join();
+
+            e.Graphics.DrawImage(renderedImage, 0, 0);
+        }
+
+        private void Paint()
+        {
+            if (Scene.Instance.Camera == null)
+                return;
+
             //object Graphics to draw on the panel
             //Graphics g = e.Graphics;
 
@@ -206,10 +224,12 @@ namespace RayTracingApp
             progressBar.Minimum = 0;
             progressBar.Maximum = Vres * Hres;
 
+            int start = Thread.CurrentThread.Name == "Child" ? 1 : 0;
+
             using (Graphics g = Graphics.FromImage(renderedImage))
             {
                 //Hres -> horizontal resolution Vres -> vertical resolution
-                for (int j = 0; j < Vres; j++)
+                for (int j = start; j < Vres; j += 2)
                 {
                     for (int i = 0; i < Hres; i++)
                     {
@@ -217,36 +237,48 @@ namespace RayTracingApp
                         double P_x = (i + 0.5) * s - width / 2.0;
                         double P_y = -(j + 0.5) * s + height / 2.0;
                         double P_z = 0.0; // the projection plane is plane z = 0.0
-                                          //direction vector
+                        
+                        //direction vector
                         Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
+
                         //normalize the direction vector
                         direction = direction.Normalize();
                         //construct the ray
                         Ray ray = new Ray(direction, origin);
 
-                        if (j == 199 - 50 && i == 50)
-                            Debug.Assert(true);
-
                         //call traceRay() function
                         Color3 color = TraceRay(ray, rec);
+
                         //check range R G B need to be between 0 and 1
                         color.CheckRange();
+
                         //convert color format
                         int red = (int)(255.0 * color.ColR);
                         int green = (int)(255.0 * color.ColG);
                         int blue = (int)(255.0 * color.ColB);
                         Color pixelColor = Color.FromArgb(red, green, blue);
+
                         SolidBrush pixelBrush = new SolidBrush(pixelColor);
+
+                        paintSemaphore.WaitOne();
+
                         //draw a 1x1 pixel on panel
                         g.FillRectangle(pixelBrush, i, j, 1, 1);
-                        int progress = j * Hres + i;
-                        progressBar.Value = progress;
-                    }
 
+                        paintSemaphore.Release();
+
+                        UpProgressBar();
+                    }
                 }
             }
-            progressBar.Value = progressBar.Minimum;
-            e.Graphics.DrawImage(renderedImage, 0, 0);
+        }
+
+        private void UpProgressBar()
+        {
+            if ( progressBar.InvokeRequired)
+                progressBar.BeginInvoke(() => { UpProgressBar(); });
+            else
+                progressBar.Value += 1;
         }
 
         private void saveImageButton_Click(object sender, EventArgs e)
