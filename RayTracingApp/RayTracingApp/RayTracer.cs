@@ -65,7 +65,7 @@ namespace RayTracingApp
                     if (lightAmbientReflection.Checked == true)
                     {
                         //cálculo da componente de luz ambiente
-                        color += light.Intensity * hit.Material.Color * hit.Material.AmbientLight;
+                        color += light.Intensity * hit.Material.AmbientColor;
                     }
                     if (lightDiffuseReflection.Checked == true)
                     {
@@ -92,7 +92,7 @@ namespace RayTracingApp
 
 
                             if (!shadowHit.Found)
-                                color += light.Intensity * hit.Material.Color * hit.Material.DiffuseLight * cosTheta;
+                                color += light.Intensity * hit.Material.DiffuseColor * cosTheta;
                         }
                     }
 
@@ -140,7 +140,7 @@ namespace RayTracingApp
                                 Ray refractedRay = new Ray(r, hit.Point);
 
                                 Color3 refractedColor = TraceRay(refractedRay, rec - 1);
-                                color = color + hit.Material.Color * hit.Material.RefractedLight * refractedColor;
+                                color = color + hit.Material.RefractedColor * refractedColor;
                             }
                         }
 

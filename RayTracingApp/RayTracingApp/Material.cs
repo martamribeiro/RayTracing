@@ -10,6 +10,9 @@ namespace RayTracingApp
     {
         //rgb color
         private Color3 color;
+        private Color3 ambientColor;
+        private Color3 diffuseColor;
+        private Color3 refractedColor;
         //light percentages:
         private float ambientLight;
         private float diffuseLight; 
@@ -23,6 +26,18 @@ namespace RayTracingApp
         public Color3 Color
         {
             get { return color; }
+        }
+        public Color3 AmbientColor
+        {
+            get { return ambientColor; }
+        }
+        public Color3 DiffuseColor
+        {
+            get { return diffuseColor; }
+        }
+        public Color3 RefractedColor
+        {
+            get { return refractedColor; }
         }
         public float AmbientLight
         {
@@ -53,6 +68,9 @@ namespace RayTracingApp
             this.specularLight = specularLight;
             this.refractedLight = refractedLight;
             this.refractiveIndex = refractiveIndex;
+            this.ambientColor = color * ambientLight;
+            this.diffuseColor = color * diffuseLight;
+            this.refractedColor = color * refractedLight;
         }
     }
 }
