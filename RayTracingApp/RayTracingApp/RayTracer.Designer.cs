@@ -89,15 +89,15 @@
             sceneContainer.BackColor = SystemColors.ControlLightLight;
             sceneContainer.Location = new Point(331, 42);
             sceneContainer.Name = "sceneContainer";
-            sceneContainer.Size = new Size(448, 323);
+            sceneContainer.Size = new Size(450, 325);
             sceneContainer.TabIndex = 0;
             sceneContainer.Paint += sceneContainer_Paint;
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(331, 20);
+            progressBar.Location = new Point(331, 13);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(448, 23);
+            progressBar.Size = new Size(450, 25);
             progressBar.TabIndex = 0;
             // 
             // statusStrip1
@@ -137,6 +137,7 @@
             // 
             imageResolutionVertical.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             imageResolutionVertical.Location = new Point(192, 21);
+            imageResolutionVertical.Maximum = new decimal(new int[] { 325, 0, 0, 0 });
             imageResolutionVertical.Name = "imageResolutionVertical";
             imageResolutionVertical.Size = new Size(46, 23);
             imageResolutionVertical.TabIndex = 6;
@@ -155,6 +156,7 @@
             // 
             imageResolutionHorizontal.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             imageResolutionHorizontal.Location = new Point(78, 21);
+            imageResolutionHorizontal.Maximum = new decimal(new int[] { 450, 0, 0, 0 });
             imageResolutionHorizontal.Name = "imageResolutionHorizontal";
             imageResolutionHorizontal.Size = new Size(46, 23);
             imageResolutionHorizontal.TabIndex = 4;

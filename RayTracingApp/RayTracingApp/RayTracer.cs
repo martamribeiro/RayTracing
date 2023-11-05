@@ -43,6 +43,9 @@ namespace RayTracingApp
             lightRefraction.Checked = true;
             lightSpecularReflection.Checked = true;
             lightDiffuseReflection.Checked = true;
+
+            imageResolutionHorizontal.Value = Scene.Instance.Image.ResX;
+            imageResolutionVertical.Value = Scene.Instance.Image.ResY;
         }
 
         private Color3 TraceRay(Ray ray, int rec)
@@ -174,8 +177,9 @@ namespace RayTracingApp
                 Scene.Instance.Camera.Transformation = cameraTransformation;
 
                 rec = (int)rendererRecursionDepth.Value;
-                //imageResolutionHorizontal.Value
-                //imageResolutionVertical.Value
+
+                Scene.Instance.Image.ResX = (int)imageResolutionHorizontal.Value;
+                Scene.Instance.Image.ResY = (int)imageResolutionVertical.Value;
             }
 
             //inicializa o painel novamente para iniciar o processo de pintura
@@ -186,6 +190,15 @@ namespace RayTracingApp
         {
             if (Scene.Instance.Camera == null)
                 return;
+
+            int Vres = Scene.Instance.Image.ResY;
+            int Hres = Scene.Instance.Image.ResX;
+
+            progressBar.Minimum = 0;
+            progressBar.Value = 0;
+            progressBar.Maximum = Vres * Hres;
+
+            renderedImage = new Bitmap(Hres, Vres);
 
             Thread trd = new Thread(new ThreadStart(Paint));
             trd.Name = "Child";
@@ -219,15 +232,13 @@ namespace RayTracingApp
             int Hres = Scene.Instance.Image.ResX;
             double width = height * Hres / Vres;
             double s = height / Vres;
-            renderedImage = new Bitmap(Hres, Vres);
-
-            progressBar.Minimum = 0;
-            progressBar.Maximum = Vres * Hres;
 
             int start = Thread.CurrentThread.Name == "Child" ? 1 : 0;
 
+            paintSemaphore.WaitOne();
             using (Graphics g = Graphics.FromImage(renderedImage))
             {
+                paintSemaphore.Release();
                 //Hres -> horizontal resolution Vres -> vertical resolution
                 for (int j = start; j < Vres; j += 2)
                 {
@@ -237,7 +248,7 @@ namespace RayTracingApp
                         double P_x = (i + 0.5) * s - width / 2.0;
                         double P_y = -(j + 0.5) * s + height / 2.0;
                         double P_z = 0.0; // the projection plane is plane z = 0.0
-                        
+
                         //direction vector
                         Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
 
@@ -275,7 +286,7 @@ namespace RayTracingApp
 
         private void UpProgressBar()
         {
-            if ( progressBar.InvokeRequired)
+            if (progressBar.InvokeRequired)
                 progressBar.BeginInvoke(() => { UpProgressBar(); });
             else
                 progressBar.Value += 1;
