@@ -67,6 +67,14 @@
             lightSpecularReflection = new CheckBox();
             lightDiffuseReflection = new CheckBox();
             lightAmbientReflection = new CheckBox();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            groupBox1 = new GroupBox();
+            AAHigh = new RadioButton();
+            AAMedium = new RadioButton();
+            AALow = new RadioButton();
+            AAOff = new RadioButton();
             groupImageResolution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imageResolutionVertical).BeginInit();
             ((System.ComponentModel.ISupportInitialize)imageResolutionHorizontal).BeginInit();
@@ -82,20 +90,24 @@
             ((System.ComponentModel.ISupportInitialize)transformationOrientationVertical).BeginInit();
             ((System.ComponentModel.ISupportInitialize)transformationOrientationHorizontal).BeginInit();
             groupLight.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // sceneContainer
             // 
             sceneContainer.BackColor = SystemColors.ControlLightLight;
-            sceneContainer.Location = new Point(331, 42);
+            sceneContainer.Location = new Point(332, 56);
             sceneContainer.Name = "sceneContainer";
-            sceneContainer.Size = new Size(450, 325);
+            sceneContainer.Size = new Size(450, 450);
             sceneContainer.TabIndex = 0;
             sceneContainer.Paint += sceneContainer_Paint;
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(331, 13);
+            progressBar.Location = new Point(332, 25);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(450, 25);
             progressBar.TabIndex = 0;
@@ -103,9 +115,9 @@
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Location = new Point(0, 428);
+            statusStrip1.Location = new Point(0, 570);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
+            statusStrip1.Size = new Size(787, 22);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -113,7 +125,7 @@
             // 
             loadButton.Location = new Point(23, 64);
             loadButton.Name = "loadButton";
-            loadButton.Size = new Size(284, 32);
+            loadButton.Size = new Size(298, 32);
             loadButton.TabIndex = 2;
             loadButton.Text = "Load...";
             loadButton.UseVisualStyleBackColor = true;
@@ -126,7 +138,7 @@
             groupImageResolution.Controls.Add(imageResolutionHorizontal);
             groupImageResolution.Controls.Add(labelImageResolutionHorizontal);
             groupImageResolution.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupImageResolution.Location = new Point(331, 371);
+            groupImageResolution.Location = new Point(332, 512);
             groupImageResolution.Name = "groupImageResolution";
             groupImageResolution.Size = new Size(248, 54);
             groupImageResolution.TabIndex = 3;
@@ -137,7 +149,7 @@
             // 
             imageResolutionVertical.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             imageResolutionVertical.Location = new Point(192, 21);
-            imageResolutionVertical.Maximum = new decimal(new int[] { 325, 0, 0, 0 });
+            imageResolutionVertical.Maximum = new decimal(new int[] { 450, 0, 0, 0 });
             imageResolutionVertical.Name = "imageResolutionVertical";
             imageResolutionVertical.Size = new Size(46, 23);
             imageResolutionVertical.TabIndex = 6;
@@ -173,7 +185,7 @@
             // 
             // saveImageButton
             // 
-            saveImageButton.Location = new Point(585, 383);
+            saveImageButton.Location = new Point(586, 526);
             saveImageButton.Name = "saveImageButton";
             saveImageButton.Size = new Size(95, 32);
             saveImageButton.TabIndex = 4;
@@ -183,7 +195,7 @@
             // 
             // exitButton
             // 
-            exitButton.Location = new Point(686, 383);
+            exitButton.Location = new Point(687, 526);
             exitButton.Name = "exitButton";
             exitButton.Size = new Size(93, 32);
             exitButton.TabIndex = 5;
@@ -196,7 +208,7 @@
             groupRenderer.Controls.Add(rendererRecursionDepth);
             groupRenderer.Controls.Add(labelRendererRecursionDepth);
             groupRenderer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupRenderer.Location = new Point(23, 371);
+            groupRenderer.Location = new Point(23, 512);
             groupRenderer.Name = "groupRenderer";
             groupRenderer.Size = new Size(170, 54);
             groupRenderer.TabIndex = 7;
@@ -223,7 +235,7 @@
             // 
             // startButton
             // 
-            startButton.Location = new Point(199, 383);
+            startButton.Location = new Point(199, 526);
             startButton.Name = "startButton";
             startButton.Size = new Size(108, 32);
             startButton.TabIndex = 8;
@@ -238,7 +250,7 @@
             groupCamera.Controls.Add(cameraDistance);
             groupCamera.Controls.Add(labelCameraDistance);
             groupCamera.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupCamera.Location = new Point(23, 102);
+            groupCamera.Location = new Point(3, 6);
             groupCamera.Name = "groupCamera";
             groupCamera.Size = new Size(284, 54);
             groupCamera.TabIndex = 7;
@@ -306,7 +318,7 @@
             groupTransformation.Controls.Add(transformationOrientationHorizontal);
             groupTransformation.Controls.Add(labelTransformationOrientationHorizontal);
             groupTransformation.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupTransformation.Location = new Point(23, 162);
+            groupTransformation.Location = new Point(3, 66);
             groupTransformation.Name = "groupTransformation";
             groupTransformation.Size = new Size(284, 118);
             groupTransformation.TabIndex = 8;
@@ -437,7 +449,7 @@
             groupLight.Controls.Add(lightDiffuseReflection);
             groupLight.Controls.Add(lightAmbientReflection);
             groupLight.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            groupLight.Location = new Point(23, 286);
+            groupLight.Location = new Point(3, 189);
             groupLight.Name = "groupLight";
             groupLight.Size = new Size(284, 79);
             groupLight.TabIndex = 9;
@@ -488,16 +500,103 @@
             lightAmbientReflection.Text = "Ambient Reflection";
             lightAmbientReflection.UseVisualStyleBackColor = true;
             // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(23, 102);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(302, 404);
+            tabControl1.TabIndex = 10;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(groupCamera);
+            tabPage1.Controls.Add(groupTransformation);
+            tabPage1.Controls.Add(groupLight);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(294, 376);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Scene";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(groupBox1);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(294, 376);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Quality";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(AAHigh);
+            groupBox1.Controls.Add(AAMedium);
+            groupBox1.Controls.Add(AALow);
+            groupBox1.Controls.Add(AAOff);
+            groupBox1.Location = new Point(8, 6);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(280, 58);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Anti Aliasing";
+            // 
+            // AAHigh
+            // 
+            AAHigh.AutoSize = true;
+            AAHigh.Location = new Point(221, 22);
+            AAHigh.Name = "AAHigh";
+            AAHigh.Size = new Size(51, 19);
+            AAHigh.TabIndex = 3;
+            AAHigh.Text = "High";
+            AAHigh.UseVisualStyleBackColor = true;
+            // 
+            // AAMedium
+            // 
+            AAMedium.AutoSize = true;
+            AAMedium.Location = new Point(137, 22);
+            AAMedium.Name = "AAMedium";
+            AAMedium.Size = new Size(70, 19);
+            AAMedium.TabIndex = 2;
+            AAMedium.Text = "Medium";
+            AAMedium.UseVisualStyleBackColor = true;
+            // 
+            // AALow
+            // 
+            AALow.AutoSize = true;
+            AALow.Location = new Point(69, 21);
+            AALow.Name = "AALow";
+            AALow.Size = new Size(47, 19);
+            AALow.TabIndex = 1;
+            AALow.Text = "Low";
+            AALow.UseVisualStyleBackColor = true;
+            // 
+            // AAOff
+            // 
+            AAOff.AutoSize = true;
+            AAOff.Checked = true;
+            AAOff.Location = new Point(6, 22);
+            AAOff.Name = "AAOff";
+            AAOff.Size = new Size(42, 19);
+            AAOff.TabIndex = 0;
+            AAOff.TabStop = true;
+            AAOff.Text = "Off";
+            AAOff.UseVisualStyleBackColor = true;
+            // 
             // RayTracer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(787, 592);
+            Controls.Add(tabControl1);
             Controls.Add(progressBar);
-            Controls.Add(groupLight);
-            Controls.Add(groupTransformation);
             Controls.Add(labelRayTracer);
-            Controls.Add(groupCamera);
             Controls.Add(startButton);
             Controls.Add(groupRenderer);
             Controls.Add(exitButton);
@@ -529,6 +628,11 @@
             ((System.ComponentModel.ISupportInitialize)transformationOrientationHorizontal).EndInit();
             groupLight.ResumeLayout(false);
             groupLight.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -574,5 +678,13 @@
         private NumericUpDown transformationCenterY;
         private NumericUpDown transformationCenterX;
         private Label labelTransformationCenterX;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private GroupBox groupBox1;
+        private RadioButton AALow;
+        private RadioButton AAOff;
+        private RadioButton AAHigh;
+        private RadioButton AAMedium;
     }
 }

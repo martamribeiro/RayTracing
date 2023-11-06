@@ -29,14 +29,14 @@ namespace RayTracingApp
                 Parser.ParseScene(openFile.FileName);
 
             //default field values
-            cameraDistance.Value = (decimal)Scene.Instance.Camera.Distance;
-            cameraFieldOfView.Value = (decimal)Scene.Instance.Camera.Fov;
+            cameraDistance.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Distance;
+            cameraFieldOfView.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Fov;
 
-            transformationOrientationVertical.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.X;
-            transformationOrientationHorizontal.Value = (decimal)Scene.Instance.Camera.Transformation.Rotation.Z;
-            transformationCenterX.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.X;
-            transformationCenterY.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Y;
-            transformationCenterZ.Value = (decimal)Scene.Instance.Camera.Transformation.Translation.Z;
+            transformationOrientationVertical.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Transformation.Rotation.X;
+            transformationOrientationHorizontal.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Transformation.Rotation.Z;
+            transformationCenterX.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Transformation.Translation.X;
+            transformationCenterY.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Transformation.Translation.Y;
+            transformationCenterZ.Value = (decimal)RayTracingApp.Scene.Instance.Camera.Transformation.Translation.Z;
 
             rendererRecursionDepth.Value = 2;
             lightAmbientReflection.Checked = true;
@@ -44,22 +44,22 @@ namespace RayTracingApp
             lightSpecularReflection.Checked = true;
             lightDiffuseReflection.Checked = true;
 
-            imageResolutionHorizontal.Value = Scene.Instance.Image.ResX;
-            imageResolutionVertical.Value = Scene.Instance.Image.ResY;
+            imageResolutionHorizontal.Value = RayTracingApp.Scene.Instance.Image.ResX;
+            imageResolutionVertical.Value = RayTracingApp.Scene.Instance.Image.ResY;
         }
 
         private Color3 TraceRay(Ray ray, int rec)
         {
             Hit hit = new Hit();
 
-            foreach (Object3D currObject in Scene.Instance.Objects)
+            foreach (Object3D currObject in RayTracingApp.Scene.Instance.Objects)
                 currObject.Intersect(ray, ref hit);
 
             if (hit.Found)
             {
                 Color3 color = new Color3(0.0, 0.0, 0.0);
 
-                foreach (Light light in Scene.Instance.Lights)
+                foreach (Light light in RayTracingApp.Scene.Instance.Lights)
                 {
 
                     if (lightAmbientReflection.Checked == true)
@@ -82,7 +82,7 @@ namespace RayTracingApp
 
                             shadowHit.Tmin = tLight;
 
-                            foreach (Object3D currObject in Scene.Instance.Objects)
+                            foreach (Object3D currObject in RayTracingApp.Scene.Instance.Objects)
                             {
                                 currObject.Intersect(shadowRay, ref shadowHit);
 
@@ -128,7 +128,7 @@ namespace RayTracingApp
 
                                 float cosThetaR = (float)Math.Sqrt(1.0f - eta * eta * (1.0f - cosThetaV * cosThetaV));
 
-                                if (ray.Direction.Dot(hit.Normal) > 0.0)
+                                if (cosThetaV < 0.0)
                                 {
                                     eta = hit.Material.RefractiveIndex;
                                     cosThetaR = -cosThetaR;
@@ -147,11 +147,11 @@ namespace RayTracingApp
                     }
 
                 }
-                return color / Scene.Instance.Lights.Count;
+                return color / RayTracingApp.Scene.Instance.Lights.Count;
                 //return hit.Material.Color;
             }
 
-            return Scene.Instance.Image!.Color;
+            return RayTracingApp.Scene.Instance.Image!.Color;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -161,30 +161,30 @@ namespace RayTracingApp
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (Scene.Instance.Camera != null)
+            if (RayTracingApp.Scene.Instance.Camera != null)
             {
                 rec = 2;
                 //ver valores UI
-                Scene.Instance.Camera.Distance = (double)cameraDistance.Value;
-                Scene.Instance.Camera.Fov = (double)cameraFieldOfView.Value;
+                RayTracingApp.Scene.Instance.Camera.Distance = (double)cameraDistance.Value;
+                RayTracingApp.Scene.Instance.Camera.Fov = (double)cameraFieldOfView.Value;
 
                 Transformation cameraTransformation = new Transformation();
                 cameraTransformation = cameraTransformation.Translate((double)transformationCenterX.Value, (double)transformationCenterY.Value, (double)transformationCenterZ.Value);
                 cameraTransformation = cameraTransformation.RotateX((double)transformationOrientationVertical.Value);
                 cameraTransformation = cameraTransformation.RotateZ((double)transformationOrientationHorizontal.Value);
 
-                Scene.Instance.Camera.Transformation = cameraTransformation;
+                RayTracingApp.Scene.Instance.Camera.Transformation = cameraTransformation;
 
-                foreach (Object3D obj in Scene.Instance.Objects)
+                foreach (Object3D obj in RayTracingApp.Scene.Instance.Objects)
                     obj.recalcTransformations();
 
-                foreach (Light light in Scene.Instance.Lights)
+                foreach (Light light in RayTracingApp.Scene.Instance.Lights)
                     light.recalcTransformations();
 
                 rec = (int)rendererRecursionDepth.Value;
 
-                Scene.Instance.Image!.ResX = (int)imageResolutionHorizontal.Value;
-                Scene.Instance.Image!.ResY = (int)imageResolutionVertical.Value;
+                RayTracingApp.Scene.Instance.Image!.ResX = (int)imageResolutionHorizontal.Value;
+                RayTracingApp.Scene.Instance.Image!.ResY = (int)imageResolutionVertical.Value;
             }
 
             //inicializa o painel novamente para iniciar o processo de pintura
@@ -193,11 +193,11 @@ namespace RayTracingApp
 
         private void sceneContainer_Paint(object sender, PaintEventArgs e)
         {
-            if (Scene.Instance.Camera == null)
+            if (RayTracingApp.Scene.Instance.Camera == null)
                 return;
 
-            int Vres = Scene.Instance.Image.ResY;
-            int Hres = Scene.Instance.Image.ResX;
+            int Vres = RayTracingApp.Scene.Instance.Image.ResY;
+            int Hres = RayTracingApp.Scene.Instance.Image.ResX;
 
             progressBar.Minimum = 0;
             progressBar.Value = 0;
@@ -205,36 +205,52 @@ namespace RayTracingApp
 
             renderedImage = new Bitmap(Hres, Vres);
 
-            Thread trd = new Thread(new ThreadStart(Paint));
+            int AAValue = GetAAValue();
+
+            Thread trd = new Thread(new ThreadStart(() => { Paint(AAValue); }));
             trd.Name = "Child";
 
             trd.Start();
-            Paint();
+            Paint(AAValue);
             trd.Join();
 
             e.Graphics.DrawImage(renderedImage, 0, 0);
         }
 
-        private void Paint()
+        private int GetAAValue()
         {
-            if (Scene.Instance.Camera == null)
+            if (AAOff.Checked)
+                return 2;
+
+            if (AALow.Checked)
+                return 3;
+
+            if (AAMedium.Checked)
+                return 4;
+
+            return 5;
+        }
+
+        private void Paint(int AAValue)
+        {
+            if (RayTracingApp.Scene.Instance.Camera == null)
                 return;
 
             //object Graphics to draw on the panel
             //Graphics g = e.Graphics;
 
             //raytracer
-            double distance = Scene.Instance.Camera.Distance;
+            double distance = RayTracingApp.Scene.Instance.Camera.Distance;
             Vector3 origin = new Vector3(0, 0, (float)distance);
 
-            double fieldOfView = Scene.Instance.Camera.Fov * Math.PI / 180.0;
+            double fieldOfView = RayTracingApp.Scene.Instance.Camera.Fov * Math.PI / 180.0;
             double height = 2.0 * distance * Math.Tan(fieldOfView / 2.0);
 
-            if (Scene.Instance.Image == null)
+            if (RayTracingApp.Scene.Instance.Image == null)
                 return;
 
-            int Vres = Scene.Instance.Image.ResY;
-            int Hres = Scene.Instance.Image.ResX;
+            int Vres = RayTracingApp.Scene.Instance.Image.ResY;
+            int Hres = RayTracingApp.Scene.Instance.Image.ResX;
             double width = height * Hres / Vres;
             double s = height / Vres;
 
@@ -249,21 +265,33 @@ namespace RayTracingApp
                 {
                     for (int i = 0; i < Hres; i++)
                     {
-                        //P.x, P.y and P.z for the center of the pixel[i][j]
-                        double P_x = (i + 0.5) * s - width / 2.0;
-                        double P_y = -(j + 0.5) * s + height / 2.0;
-                        double P_z = 0.0; // the projection plane is plane z = 0.0
+                        Color3 color = new Color3(0, 0, 0);
 
-                        //direction vector
-                        Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
+                        float pixelDivision = 1.0f / AAValue;
 
-                        //normalize the direction vector
-                        direction = direction.Normalize();
-                        //construct the ray
-                        Ray ray = new Ray(direction, origin);
+                        for (int k = 1; k < AAValue; k++)
+                        {
+                            for (int l = 1; l < AAValue; l++)
+                            {
+                                //P.x, P.y and P.z for the center of the pixel[i][j]
+                                double P_x = (i + pixelDivision * k) * s - width / 2.0;
+                                double P_y = -(j + pixelDivision * l) * s + height / 2.0;
+                                double P_z = 0.0; // the projection plane is plane z = 0.0
 
-                        //call traceRay() function
-                        Color3 color = TraceRay(ray, rec);
+                                //direction vector
+                                Vector3 direction = new Vector3((float)P_x, (float)P_y, (float)-distance);
+
+                                //normalize the direction vector
+                                direction = direction.Normalize();
+                                //construct the ray
+                                Ray ray = new Ray(direction, origin);
+
+                                //call traceRay() function
+                                color += TraceRay(ray, rec);
+                            }
+                        }
+
+                        color = color / (int)Math.Pow((AAValue - 1), 2);
 
                         //check range R G B need to be between 0 and 1
                         color.CheckRange();
